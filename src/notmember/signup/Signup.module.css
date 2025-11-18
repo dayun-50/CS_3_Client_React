@@ -1,0 +1,414 @@
+.membershipbox {
+    width:580px;
+    height:900px;
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 4px 4px 8px -2px rgba(0, 0, 0, 0.25);
+    display: flex;            
+    justify-content: center; 
+    align-items: center;
+    /* border:1px solid black; */
+}
+
+.mbsinbox {
+    width:90%;
+    height:auto;
+    display: flex;           /* 가로 정렬 */
+    flex-direction: column;  /* 세로 배치 */
+    gap:16px;
+    /* border:1px solid black; */
+}
+/*-----------------------------------------------------------*/
+/*회원가입 제목*/
+
+/* .h1h1 {
+    border:1px solid black;
+} */
+
+.newusertitle {
+    font-size: 32px;
+    font-weight: bold;
+    color:#696B70;
+    display: flex;
+    justify-content: center;
+}
+
+/*-----------------------------------------------------------*/
+/*회원가입 이메일*/
+
+.newemail {
+    margin-top: 30px;
+}
+
+.newemail label {
+    color: #8C8C8C;
+    font-size: 16px;
+    font-weight: bold;
+    display: block;       /* label을 block으로 만들어 세로 배치 */
+    margin-bottom: 5px;
+    margin-left: 10px;
+}
+
+.newemail input {
+    width:300px;
+    height:40px;
+    border-radius: 20px;
+    border: 1px solid #8C8C8C;
+    padding: 0 12px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.newemail input::placeholder {
+    color: #8C8C8C;
+    font-size: 16px;
+}
+
+.inputButtonWrapper {
+    display: flex;          /* 가로 정렬 */
+    gap: 16px;              /* input과 버튼 사이 간격 */
+    align-items: center; /* 세로 중앙 정렬 */
+}
+
+.emailauth {
+    width:210px;
+    height:40px;
+    border-radius: 20px;
+    border: none;
+    background-color:#B9B9B9;
+    color:white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/*-----------------------------------------------------------*/
+/*회원가입 이메일 확인*/
+
+.emailing label {
+    color: #8C8C8C;
+    font-size: 16px;
+    font-weight: bold;
+    display: block;       /* label을 block으로 만들어 세로 배치 */
+    margin-bottom: 5px;
+    margin-left: 10px;
+}
+
+.emailing input {
+    width:100%;
+    height:40px;
+    border-radius: 20px;
+    border: 1px solid #8C8C8C;
+    padding: 0 12px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.emailing input::placeholder {
+    color: #8C8C8C;
+    font-size: 16px;
+}
+
+/*-----------------------------------------------------------*/
+/*아이디 적는 칸*/
+
+.newid label {
+    color: #8C8C8C;
+    font-size: 16px;
+    font-weight: bold;
+    display: block;       /* label을 block으로 만들어 세로 배치 */
+    margin-bottom: 5px;
+    margin-left: 10px;
+}
+
+.newid input {
+    width:300px;
+    height:40px;
+    border-radius: 20px;
+    border: 1px solid #8C8C8C;
+    padding: 0 12px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.newid input::placeholder {
+    color: #8C8C8C;
+    font-size: 16px;
+}
+
+.idauth {
+    width:210px;
+    height:40px;
+    border-radius: 20px;
+    border: none;
+    background-color:#B9B9B9;
+    color:white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/*-----------------------------------------------------------*/
+/*닉네임 적는 칸*/
+
+.newnic label {
+    color: #8C8C8C;
+    font-size: 16px;
+    font-weight: bold;
+    display: block;       /* label을 block으로 만들어 세로 배치 */
+    margin-bottom: 5px;
+    margin-left: 10px;
+}
+
+.newnic input {
+    width:300px;
+    height:40px;
+    border-radius: 20px;
+    border: 1px solid #8C8C8C;
+    padding: 0 12px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.newnic input::placeholder {
+    color: #8C8C8C;
+    font-size: 16px;
+}
+
+.nicauth {
+    width:210px;
+    height:40px;
+    border-radius: 20px;
+    border: none;
+    background-color:#B9B9B9;
+    color:white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/*-----------------------------------------------------------*/
+/*비밀번호 적는 칸*/
+
+.pwing label {
+    color: #8C8C8C;
+    font-size: 16px;
+    font-weight: bold;
+    display: block;       /* label을 block으로 만들어 세로 배치 */
+    margin-bottom: 5px;
+    margin-left: 10px;
+}
+
+.pwing input {
+    width:100%;
+    height:40px;
+    border-radius: 20px;
+    border: 1px solid #8C8C8C;
+    padding: 0 12px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.pwing input::placeholder {
+    color: #8C8C8C;
+    font-size: 16px;
+}
+
+/*-----------------------------------------------------------*/
+/*연락처 적는 칸*/
+
+.phone label {
+    color: #8C8C8C;
+    font-size: 16px;
+    font-weight: bold;
+    display: block;       /* label을 block으로 만들어 세로 배치 */
+    margin-bottom: 5px;
+    margin-left: 10px;
+}
+
+.phoneWrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;            /* input과 span 사이 간격 */
+}
+
+.prefix {
+    width: 50px;          /* "010 -" 고정 폭 */
+    text-align: center;    /* 글자 가운데 정렬 */
+    font-size: 16px;
+    font-weight: 400;
+    color: #8C8C8C;
+    flex-shrink: 0; /* 줄어들지 않게 */
+}
+
+.dash {
+    width: 20px;           /* '-' 고정 폭 */
+    text-align: center;    /* 글자 가운데 정렬 */
+    font-weight: 400;
+    color: #8C8C8C;
+    flex-shrink: 0;
+}
+
+.phoneWrapper input {
+    flex: 1 1 0;                /* 두 input이 동일 비율로 한 줄에 */
+    min-width: 0;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px solid #8C8C8C;  /* 조금 두껍게 */
+    padding: 0 12px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.phoneWrapper input::placeholder {
+    color: #8C8C8C;
+    font-size: 16px;
+}
+
+/*-----------------------------------------------------------*/
+/*부모 선택 칸*/
+
+.parent {
+    /* height:40px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+    /* border:1px solid black; */
+}
+
+.parent label {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #8C8C8C;
+}
+
+.papa {
+    width: 20px;         /* 동그라미 가로 */
+    height: 20px;        /* 동그라미 세로 */
+    margin-right: 5px;
+}
+
+/*-----------------------------------------------------------*/
+/*생년월일 칸*/
+
+.birthing label {
+    color: #8C8C8C;
+    font-size: 16px;
+    font-weight: bold;
+    display: block;       /* label을 block으로 만들어 세로 배치 */
+    margin-bottom: 5px;
+    margin-left: 10px;
+}
+
+.birthing input {
+    width:100%;
+    height:40px;
+    border-radius: 20px;
+    border: 1px solid #8C8C8C;
+    padding: 0 12px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.birthing input::placeholder {
+    color: #8C8C8C;
+    font-size: 16px;
+}
+
+/*-----------------------------------------------------------*/
+/*가족코드 칸*/
+
+.familying label {
+    color: #8C8C8C;
+    font-size: 16px;
+    font-weight: bold;
+    display: block;       /* label을 block으로 만들어 세로 배치 */
+    margin-bottom: 5px;
+    margin-left: 10px;
+}
+
+.familying input {
+    width:100%;
+    height:40px;
+    border-radius: 20px;
+    border: 1px solid #8C8C8C;
+    padding: 0 12px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.familying input::placeholder {
+    color: #8C8C8C;
+    font-size: 16px;
+}
+/*-----------------------------------------------------------*/
+/*가족코드 가 없을경우 칸*/
+
+.okcheck {
+    display: flex;
+    align-items: center;  /* 체크박스와 텍스트 세로 중앙 */
+}
+
+.checkboxLabel {
+    display: flex;         /* 체크박스와 텍스트 가로 배치 */
+    align-items: center;   /* 체크박스와 글씨 세로 중앙 */
+    gap: 8px;              /* 체크박스와 글씨 사이 간격 */
+    color: #8C8C8C;
+    cursor: pointer;
+    /* font-weight: 700; */
+}
+
+.checkboxLabel input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #8C8C8C;
+    border-radius: 15px;    /* 체크박스 둥글기 */
+    appearance: none;      /* 기본 체크박스 제거 */
+    -webkit-appearance: none;
+    cursor: pointer;
+    margin: 0;             /* 텍스트와 정렬 위해 */
+    position: relative;
+}
+
+/* 체크 시 표시 */
+.checkboxLabel input[type="checkbox"]:checked {
+    background-color: #499ef8;
+    border-color: #499ef8;
+}
+
+/*-----------------------------------------------------------*/
+/*취소 완료 버튼*/
+
+.buttonGroup {
+    display: flex;
+    justify-content: center; 
+    gap: 25px;                  /* 버튼 사이 간격 */
+    /* margin-top: 24px; */
+}
+
+.backbutton {
+    width:250px;
+    height: 50px;
+    padding: 0 24px;
+    border-radius: 20px;
+    font-size: 18px;
+    font-weight: 700;
+    border: none;
+    /* cursor: pointer; */
+    color: white;
+    background-color: #B9B9B9;
+    /* transition: all 0.3s ease; */
+}
+
+.signinbutton {
+    width:250px;
+    height: 50px;
+    padding: 0 24px;
+    border-radius: 20px;
+    font-size: 18px;
+    font-weight: 700;
+    border: none;
+    /* cursor: pointer; */
+    background-color: #F0D827;
+    color:white;
+} 
