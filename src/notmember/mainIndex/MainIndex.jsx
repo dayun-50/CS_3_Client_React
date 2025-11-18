@@ -14,6 +14,8 @@ import styles from "./MainIndex.module.css";
 //여기서 로그인 여부에 따라서 보이고 안보이는게 다르게 만들어야함
 // "/"밑으로 들어가느 라우팅
 const MainIndex = ({ isLogin }) => {
+
+  
   return (
     <div className={styles.container}>
       {" "}
