@@ -11,8 +11,6 @@ import MainIndex from './notmember/mainIndex/MainIndex';
 
 
 
-
-
 function App() {
   // TODO: 로그인 하면 true로 바뀌도록 설정 필요
   const [isLogin, setIsLogin] = useState(true); 
