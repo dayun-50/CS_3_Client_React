@@ -198,7 +198,13 @@ const ChooseType = () => {
                         <div className={styles.bbtt}>
                             <button
                                 className={styles.deb}
-                                onClick={() => { setShowNewDiv(false); setInputBlocks([{}]); }}
+                                onClick={() => {
+                                    setShowNewDiv(false);
+                                    setInputBlocks([{}]);
+                                    setSelectedBabyMom("");      // 선택 초기화
+                                    setSelectedGender("");       // 성별 초기화
+                                    setHover(false);             // hover 초기화
+                                }}
                             >
                                 취소
                             </button>
@@ -311,6 +317,9 @@ const ChooseType = () => {
                                 onClick={() => {
                                     setShowNewDivTwo(false);
                                     setInputBlocks([{}]);
+                                    setSelectedBabyChild("");    // 선택 초기화
+                                    setGenderSelected("");       // 성별 초기화
+                                    setHoverTwo(false);          // hover 초기화
                                 }}
                             >
                                 취소
