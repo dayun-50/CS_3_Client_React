@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { NodeViewWrapper } from "@tiptap/react"
 import { Button } from "@/components/tiptap-ui-primitive/button"
 import { CloseIcon } from "@/components/tiptap-icons/close-icon"
@@ -11,8 +11,12 @@ import { caxios } from "config/config";
  * Custom hook for managing multiple file uploads with progress tracking and cancellation
  */
 function useFileUpload(options) {
-  const [fileItems, setFileItems] = useState([])
 
+
+
+  const [fileItems, setFileItems] = useState([])
+  useEffect(() => {
+  }, [fileItems])
 
 
   const uploadFile = async file => {
@@ -36,7 +40,9 @@ function useFileUpload(options) {
       abortController,
     }
 
-    setFileItems(prev => [...prev, newFileItem])
+    setFileItems(prev => {
+      return [...prev, newFileItem]
+    })
 
     try {
       // ✅ 여기서 GCS 업로드 + URL 받기
@@ -48,11 +54,11 @@ function useFileUpload(options) {
         signal: abortController.signal,
         onUploadProgress: (e) => {
           const percent = Math.round((e.loaded * 100) / e.total)
-          setFileItems(prev =>
-            prev.map(item =>
+          setFileItems(prev => {
+            return prev.map(item =>
               item.id === fileId ? { ...item, progress: percent } : item
             )
-          )
+          })
         }
       })
 
@@ -61,8 +67,12 @@ function useFileUpload(options) {
       if (!url) throw new Error("Upload failed: No URL returned")
 
       if (!abortController.signal.aborted) {
-        setFileItems(prev =>
-          prev.map(item =>
+        setFileItems(prev => {
+          if (!prev.some(item => item.id === fileId)) {
+            return prev;
+          }
+
+          return prev.map(item =>
             item.id === fileId
               ? {
                 ...item,
@@ -73,7 +83,7 @@ function useFileUpload(options) {
               }
               : item
           )
-        )
+        })
 
         options.onSuccess?.(url)
         return url // ✅ tiptap으로 그대로 넘어감
@@ -171,25 +181,26 @@ function useFileUpload(options) {
     const results = await Promise.all(uploadPromises)
 
     // Filter out null results (failed uploads)
-    return results.filter(url => url !== null);
+    const filtered = results.filter(url => url !== null);
+    return filtered;
   }
 
-const removeFileItem = (fileId) => {
-  setFileItems(prev => {
-    const fileToRemove = prev.find(item => item.id === fileId)
+  const removeFileItem = (fileId) => {
+    setFileItems(prev => {
+      const fileToRemove = prev.find(item => item.id === fileId)
 
-    if (fileToRemove?.abortController) {
-      fileToRemove.abortController.abort()
-    }
+      if (fileToRemove?.abortController) {
+        fileToRemove.abortController.abort()
+      }
 
-    // ✅ 부모 state에서도 같이 제거
-    options.setInEditorUploadFiles?.(prev =>
-      prev.filter(item => item.file !== fileToRemove.file)
-    )
+      // ✅ 부모 state에서도 같이 제거
+      options.setInEditorUploadFiles?.(prev =>
+        prev.filter(item => item.file !== fileToRemove.file)
+      )
 
-    return prev.filter(item => item.id !== fileId)
-  })
-}
+      return prev.filter(item => item.id !== fileId)
+    })
+  }
 
   const clearAllFiles = () => {
     fileItems.forEach((item) => {
@@ -413,6 +424,8 @@ const DropZoneContent = ({
 )
 
 export const ImageUploadNode = (props) => {
+
+
   const { accept, limit, maxSize } = props.node.attrs
   const inputRef = useRef(null)
   const extension = props.extension
@@ -430,15 +443,16 @@ export const ImageUploadNode = (props) => {
   const { fileItems, uploadFiles, removeFileItem, clearAllFiles } =
     useFileUpload(uploadOptions)
 
+
   const handleUpload = async (files) => {
     uploadOptions.setInEditorUploadFiles?.(prev => [
-...prev,
-...files.map(file => ({
-id: Date.now() + Math.random(),
-file,
-url: null
-}))
-])
+      ...prev,
+      ...files.map(file => ({
+        id: Date.now() + Math.random(),
+        file,
+        url: null
+      }))
+    ])
 
     const urls = await uploadFiles(files)
 
@@ -472,10 +486,10 @@ url: null
     }
   }
 
-const handleChange = (e) => {
-  const files = Array.from(e.target.files)
-  handleUpload(files)
-}
+  const handleChange = (e) => {
+    const files = Array.from(e.target.files)
+    handleUpload(files)
+  }
 
   const handleClick = () => {
     if (inputRef.current && fileItems.length === 0) {
@@ -489,24 +503,24 @@ const handleChange = (e) => {
   return (
     <NodeViewWrapper className="tiptap-image-upload" tabIndex={0} onClick={handleClick}>
       {!hasFiles && (
-          <ImageUploadDragArea
-    onFile={(files) => {
-      // ✅ [여기에서 사용자가 드래그한 파일을 부모에도 저장]
-      extension.options.setInEditorUploadFiles?.(prev => [
-        ...prev,
-        ...files.map(file => ({
-          id: Date.now() + Math.random(),
-          file,
-          url: null
-        }))
-      ])
+        <ImageUploadDragArea
+          onFile={(files) => {
+            // ✅ [여기에서 사용자가 드래그한 파일을 부모에도 저장]
+            extension.options.setInEditorUploadFiles?.(prev => [
+              ...prev,
+              ...files.map(file => ({
+                id: Date.now() + Math.random(),
+                file,
+                url: null
+              }))
+            ])
 
-      // ✅ 기존 tiptap 업로드 수행
-      handleUpload(files)
-    }}
-  >
-        <DropZoneContent maxSize={maxSize} limit={limit} />
-      </ImageUploadDragArea>
+            // ✅ 기존 tiptap 업로드 수행
+            handleUpload(files)
+          }}
+        >
+          <DropZoneContent maxSize={maxSize} limit={limit} />
+        </ImageUploadDragArea>
       )}
       {hasFiles && (
         <div className="tiptap-image-upload-previews">

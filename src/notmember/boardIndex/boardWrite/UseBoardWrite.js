@@ -89,12 +89,21 @@ export function UseBoardWrite() {
         console.log("버튼 눌림")
         console.log(inEditorUploadFiles);
         console.log(editorRef.current)
-        if (!editorRef.current) return;
+        // if (!editorRef.current) return;
         const form = new FormData();
         // 1) 파일 담기
         uploadedFiles.forEach(file => {
             form.append("files", file);
         });
+
+
+        //2-1) 에디터 내 업로드된 파일들 담기
+        const validFiles = inEditorUploadFiles.filter(file =>
+            imageSysList.includes(file.url)
+        );
+        console.log("유효한 에디터 파일들:", validFiles);
+        return
+
 
         // 2) 에디터 JSON 담기
         const contentJSON = editorRef.current.getJSON();
@@ -102,7 +111,7 @@ export function UseBoardWrite() {
         const imageSysList = extractImages(contentJSON);
         form.append("imageSysList", JSON.stringify(imageSysList));
 
-        
+
 
         // 3) 나머지 값 담기
         form.append("title", titleRef.current.value);
