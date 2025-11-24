@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./Mypage.module.css";
-import useMypage from "./UseMypage"; // 첫 글자 대문자로
+import useMypage from "./useMypage"; // 첫 글자 대문자로
 import { motion } from "framer-motion";
 
 const Mypage = () => {
