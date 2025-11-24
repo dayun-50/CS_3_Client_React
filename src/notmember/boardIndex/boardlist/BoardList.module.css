@@ -147,12 +147,21 @@
   box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* 이미지 영역 높이 설정 */
+/* 이미지 영역 높이 설정 (기존) */
 .cardHeader {
   width: 100%;
   height: 180px;
   position: relative;
   background-color: #f0f0f0;
+}
+
+/* ⭐ 이미지 없을 때 배경색 (요청에 따라 추가) */
+.cardHeader.noImage {
+  background-color: #fff4d6; /* 예시 색상: 연한 노란색 */
+  /* 필요하다면 여기에 텍스트를 중앙에 배치하는 스타일 추가 가능 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cardImage {
@@ -190,6 +199,35 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+/* ⭐ 드롭다운 메뉴 스타일 (요청에 따라 추가) */
+.dropdownMenu {
+  position: absolute;
+  top: 40px; /* 메뉴 버튼 아래로 배치 */
+  right: 10px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 10; /* 다른 요소 위에 표시 */
+  min-width: 100px;
+  overflow: hidden;
+}
+
+.menuItem {
+  width: 100%;
+  padding: 10px 15px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  color: #696b70;
+  transition: background-color 0.2s;
+}
+
+.menuItem:hover {
+  background-color: #f0f0f0;
+}
 /* 텍스트 내용 */
 .content {
   padding: 16px 20px;

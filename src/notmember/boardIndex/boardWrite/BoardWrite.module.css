@@ -1,24 +1,25 @@
 /* 에디터 전체 컨테이너 */
 .editorContainer {
   width: 100%;
-  height: 100%;
-  margin: 40px auto;
-  padding: 40px;
+  min-height: 100%;
+  max-height: 95vh;
+  padding: 20px;
   border-radius: 24px;
   background-color: #fff4d6;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 24px;
   font-family: "Pretendard", sans-serif;
   color: #333;
+
+  overflow: hidden;
 }
 
 /* --- Form Row --- */
 .formGroup {
   display: flex;
   align-items: center;
-  gap: 25px;
 }
 
 /* 레이블 */
@@ -98,12 +99,12 @@
 /* 드롭다운 옵션 */
 .dropdownOptions {
   position: absolute;
-  top: 100%; /* selectField 바로 아래 */
+  top: 100%;
   left: 48%;
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 16px;
-  width: 100%; /* selectField 너비와 동일 */
+  width: 100%;
   max-width: 200px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 100;
@@ -147,19 +148,21 @@
 
 /* 숨겨진 radio input */
 .hiddenRadio {
-  /* display: none; 아예 숨김 */
+  border-color: #f0d827;
+  background-color: #fffce3;
+  box-shadow: 0 0 8px rgba(240, 216, 39, 0.4);
 }
 
 /* 선택된 상태 */
 .radioOption.activeRadio {
   border-color: #f0d827;
-  background-color: #fffce3; /* 노란색 배경 */
+  background-color: #fffce3;
   box-shadow: 0 0 8px rgba(240, 216, 39, 0.4);
 }
 
 /* 선택된 텍스트 */
 .radioOption.activeRadio span {
-  color: #f0d827; /* 노란색 텍스트 */
+  color: #f0d827;
   font-weight: 700;
 }
 .radioOption.activeRadio .radioIcon {
@@ -173,14 +176,17 @@
 /* 에디터 영역 */
 .editorArea {
   flex-grow: 1;
+  height: 0;
   border-radius: 12px;
   background-color: #fff;
   border: 1px solid #ddd;
   display: flex;
   flex-direction: column;
+
   overflow: hidden;
-  min-height: 350px;
+  min-height: 200px; /* 최소 높이는 유지 */
 }
+
 .editorHeader {
   height: 54px;
   display: flex;
@@ -206,6 +212,8 @@
   font-size: 16px;
   line-height: 1.8;
   box-sizing: border-box;
+
+  overflow-y: auto;
 }
 .editorInput::placeholder {
   color: #ccc;
@@ -214,10 +222,20 @@
 /* 파일 업로드 영역 */
 .fileUploadArea {
   display: flex;
-  align-items: flex-start;
-  gap: 25px;
+  gap: 24px;
   padding: 10px 0;
 }
+
+.formLabel {
+  display: flex;
+  align-items: center;
+}
+
+.fileUploadArea .formLabel {
+  min-width: 100px;
+  flex-shrink: 0;
+}
+
 .uploadContainer {
   flex-grow: 1;
   display: flex;
@@ -246,6 +264,16 @@
   background-color: #fff9d3;
   border-color: #e0c817;
 }
+
+.list {
+  background-color: white;
+  border: 1px solid #ddd;
+  overflow-y: auto;
+  max-height: 100px;
+  border-radius: 12px;
+  padding: 10px;
+}
+
 .fileList {
   list-style: none;
   padding: 0;

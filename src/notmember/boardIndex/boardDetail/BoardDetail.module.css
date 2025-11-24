@@ -1,8 +1,11 @@
+/* 전체 컨테이너 */
 .parent {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
+  box-sizing: border-box;
 }
 
 /* 상단 뒤로가기 바 */
@@ -61,6 +64,8 @@
   gap: 20px;
   overflow-y: auto;
 }
+
+/* 게시글 헤더 */
 .postHeader {
   display: flex;
   flex-direction: column;
@@ -92,6 +97,42 @@
 .postBodyText {
   font-size: 16px;
 }
+
+/* --- 드롭다운 메뉴 관련 스타일 --- */
+.menuContainer {
+  position: relative;
+  cursor: pointer;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 30px; /* 아이콘 아래로 살짝 내림 */
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 10; /* 다른 요소 위에 표시 */
+  min-width: 100px;
+  overflow: hidden;
+}
+
+.menuItem {
+  width: 100%;
+  padding: 8px 15px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  color: #696b70;
+  transition: background-color 0.2s;
+}
+
+.menuItem:hover {
+  background-color: #f0f0f0;
+}
+/* --- 드롭다운 메뉴 관련 스타일 끝 --- */
 
 /* --- 댓글 영역 --- */
 .commentSection {
@@ -141,9 +182,12 @@
 /* 댓글 작성자 헤더 */
 .commentUserHeader {
   display: flex;
-  
   justify-content: space-between;
   align-items: center;
+}
+/* 댓글 옵션 아이콘에도 커서 포인터 추가 */
+.commentOptionIcon {
+  cursor: pointer;
 }
 
 /* 닉네임 & 댓글 & 날짜, 댓글달기 */
@@ -175,6 +219,7 @@
 /* 페이지네이션 */
 .paginationWrapper {
   background: #fff4d6;
+  padding: 10px 0; /* 페이지네이션 상하 패딩 추가 */
 }
 .pagination {
   display: flex;
@@ -202,8 +247,8 @@
   width: 30px;
   height: 30px;
   border-radius: 8px;
-  background: #fff;
-  border: 1px solid #c5c5c5;
+  background: none;
+  border: none;
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
@@ -218,6 +263,7 @@
 .commentInputArea {
   padding: 20px;
   background: #fff4d6;
+  border-top: 1px solid #f0d827;
 }
 .commentInputBox {
   display: flex;
@@ -257,7 +303,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.1s ease, background-color 0.1s ease; /* 전환 효과 */
+  transition: transform 0.1s ease, background-color 0.1s ease;
 }
 .submitButton:hover {
   background-color: #e6c91f;

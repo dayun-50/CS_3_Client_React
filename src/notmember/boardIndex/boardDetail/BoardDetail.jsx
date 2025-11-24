@@ -9,7 +9,15 @@ import {
   Send,
 } from "lucide-react";
 
-// --- 더미 댓글 데이터 (배열로 분리) ---
+// --- 게시글 데이터 ---
+const POST_DATA = {
+  id: 100,
+  title: "여기 제목들어갈걸",
+  author: "아가미",
+  isMine: true, // 게시글이 내가 작성한 글인지 여부 추가
+};
+
+// --- 댓글 데이터 ---
 const initialComments = [
   {
     id: 1,
@@ -17,6 +25,7 @@ const initialComments = [
     date: "2025.11.17",
     text: "여기에 댓글이 들어가는데 뭐라고 나오겠지. 첫 번째 상위 댓글입니다.",
     isReply: false,
+    isMine: true, // 댓글이 내가 작성한 글인지 여부 추가
     replies: [
       {
         id: 1.1,
@@ -24,6 +33,7 @@ const initialComments = [
         date: "2025.11.18",
         text: "답글 내용입니다. 아이디어가 좋네요!",
         isReply: true,
+        isMine: false, // 답글이 남이 작성한 글인지 여부 추가
       },
     ],
   },
@@ -33,12 +43,13 @@ const initialComments = [
     date: "2025.11.19",
     text: "두 번째 상위 댓글입니다. 프로젝트 방향에 동의합니다.",
     isReply: false,
+    isMine: false,
     replies: [],
   },
 ];
 
 // --- 댓글 아이템 컴포넌트 ---
-const CommentItem = ({ comment }) => {
+const CommentItem = ({ comment, commentMenuOpenId, setCommentMenuOpenId }) => {
   // 상위 댓글인지 답글인지에 따라 wrapper 및 댓글 박스 클래스 선택
   const wrapperClass = comment.isReply
     ? styles.replyCommentWrapper
@@ -47,6 +58,23 @@ const CommentItem = ({ comment }) => {
     ? styles.replyComment
     : styles.parentComment;
 
+  // 드롭다운 메뉴 상태
+  const isMenuOpen = commentMenuOpenId === comment.id;
+
+  // 댓글 옵션 메뉴 토글 핸들러
+  const handleCommentMenuToggle = (e) => {
+    e.stopPropagation();
+    setCommentMenuOpenId(isMenuOpen ? null : comment.id);
+  };
+
+  // 댓글 메뉴 항목 클릭 핸들러
+  const handleCommentMenuItemClick = (e, action, id) => {
+    e.stopPropagation();
+    setCommentMenuOpenId(null); // 메뉴 닫기
+    console.log(`[댓글 ID: ${id}] ${action} 처리`);
+    // 실제 로직: 신고, 수정, 삭제 API 호출
+  };
+
   return (
     <div className={wrapperClass}>
       {/* 댓글 박스 */}
@@ -54,12 +82,50 @@ const CommentItem = ({ comment }) => {
         {/* 댓글 작성자 헤더 */}
         <div className={styles.commentUserHeader}>
           <div className={styles.userNicknameBold}>{comment.nickname}</div>
-          {/* 댓글 옵션 아이콘 */}
-          <MoreHorizontal
-            size={24}
-            color="#696b70"
-            className={styles.commentOptionIcon}
-          />
+          {/* 댓글 옵션 아이콘 및 드롭다운 메뉴 */}
+          <div className={styles.menuContainer}>
+            <MoreHorizontal
+              size={24}
+              color="#696b70"
+              className={styles.commentOptionIcon}
+              onClick={handleCommentMenuToggle}
+            />
+            {isMenuOpen && (
+              <div className={styles.dropdownMenu}>
+                {comment.isMine ? (
+                  // 내가 작성한 댓글
+                  <>
+                    <button
+                      className={styles.menuItem}
+                      onClick={(e) =>
+                        handleCommentMenuItemClick(e, "수정", comment.id)
+                      }
+                    >
+                      수정
+                    </button>
+                    <button
+                      className={styles.menuItem}
+                      onClick={(e) =>
+                        handleCommentMenuItemClick(e, "삭제", comment.id)
+                      }
+                    >
+                      삭제
+                    </button>
+                  </>
+                ) : (
+                  // 남이 작성한 댓글
+                  <button
+                    className={styles.menuItem}
+                    onClick={(e) =>
+                      handleCommentMenuItemClick(e, "신고", comment.id)
+                    }
+                  >
+                    신고
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* 댓글 본문 */}
@@ -77,7 +143,12 @@ const CommentItem = ({ comment }) => {
       {/* 답글이 있으면 재귀적으로 렌더링 */}
       {comment.replies &&
         comment.replies.map((reply) => (
-          <CommentItem key={reply.id} comment={reply} />
+          <CommentItem
+            key={reply.id}
+            comment={reply}
+            commentMenuOpenId={commentMenuOpenId}
+            setCommentMenuOpenId={setCommentMenuOpenId}
+          />
         ))}
     </div>
   );
@@ -87,12 +158,46 @@ const CommentItem = ({ comment }) => {
 const BoardDetail = () => {
   const [comments, setComments] = useState(initialComments);
 
+  // 게시글 메뉴 드롭다운 상태
+  const [postMenuOpen, setPostMenuOpen] = useState(false);
+
+  // 댓글 메뉴 드롭다운 상태
+  const [commentMenuOpenId, setCommentMenuOpenId] = useState(null);
+
+  // 게시글 메뉴 토글 핸들러
+  const handlePostMenuToggle = (e) => {
+    e.stopPropagation();
+    setPostMenuOpen(!postMenuOpen);
+  };
+
+  // 게시글 메뉴 항목 클릭 핸들러
+  const handlePostMenuItemClick = (e, action) => {
+    e.stopPropagation();
+    setPostMenuOpen(false); // 메뉴 닫기
+    console.log(`[게시글 ID: ${POST_DATA.id}] ${action} 처리`);
+    // 실제 로직: 신고, 수정, 삭제 API 호출 및 페이지 이동
+  };
+
+  // 바로 이전 페이지로 이동
+  const handlBack = () => {
+    window.history.back();
+    console.log("뒤로가기 -1 실행");
+  };
+
+  // 메뉴 외부 클릭 시 메뉴 닫기 핸들러 추가
+  const handleOutsideClick = () => {
+    setPostMenuOpen(false);
+    setCommentMenuOpenId(null);
+  };
+
   return (
     <div className={styles.parent}>
       {/* 상단 뒤로가기 버튼 영역 */}
       <div className={styles.topBar}>
         <div className={styles.backButtonWrapper}>
-          <button className={styles.backButtonText}>뒤로가기</button>
+          <button className={styles.backButtonText} onClick={handlBack}>
+            뒤로가기
+          </button>
         </div>
       </div>
 
@@ -102,8 +207,44 @@ const BoardDetail = () => {
           {/* 게시글 제목 및 작성자 정보 */}
           <div className={styles.postHeader}>
             <div className={styles.postTitleWrapper}>
-              <b className={styles.postTitle}>여기 제목들어갈걸</b>
-              <MoreHorizontal size={24} color="#696b70" />
+              <b className={styles.postTitle}>{POST_DATA.title}</b>
+              {/* 게시글 옵션 아이콘 및 드롭다운 메뉴 */}
+              <div className={styles.menuContainer}>
+                <MoreHorizontal
+                  size={24}
+                  color="#696b70"
+                  onClick={handlePostMenuToggle}
+                />
+                {postMenuOpen && (
+                  <div className={styles.dropdownMenu}>
+                    {POST_DATA.isMine ? (
+                      // 내가 작성한 글
+                      <>
+                        <button
+                          className={styles.menuItem}
+                          onClick={(e) => handlePostMenuItemClick(e, "수정")}
+                        >
+                          수정
+                        </button>
+                        <button
+                          className={styles.menuItem}
+                          onClick={(e) => handlePostMenuItemClick(e, "삭제")}
+                        >
+                          삭제
+                        </button>
+                      </>
+                    ) : (
+                      // 남이 작성한 글
+                      <button
+                        className={styles.menuItem}
+                        onClick={(e) => handlePostMenuItemClick(e, "신고")}
+                      >
+                        신고
+                      </button>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
             <div className={styles.authorNicknameWrapper}>
               <div className={styles.userNickname}>아가미</div>
@@ -147,7 +288,12 @@ const BoardDetail = () => {
             <div className={styles.commentList}>
               {/* 배열 데이터를 맵핑하여 댓글 렌더링 */}
               {comments.map((comment) => (
-                <CommentItem key={comment.id} comment={comment} />
+                <CommentItem
+                  key={comment.id}
+                  comment={comment}
+                  commentMenuOpenId={commentMenuOpenId}
+                  setCommentMenuOpenId={setCommentMenuOpenId}
+                />
               ))}
             </div>
           </div>

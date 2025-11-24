@@ -79,7 +79,7 @@ const BoardWrite = () => {
             <span className={styles.selectText}>{selected}</span>
             <ChevronDown size={24} className={styles.selectIcon} />
           </div>
-          
+
           {/* 옵션 리스트 */}
           {isOpen && (
             <div className={styles.dropdownOptions}>
@@ -161,23 +161,25 @@ const BoardWrite = () => {
 
           {/* 업로드된 파일 목록 */}
           {uploadedFiles.length > 0 && (
-            <ul className={styles.fileList}>
-              {uploadedFiles.map((file, index) => (
-                <li key={index} className={styles.fileItem}>
-                  <span className={styles.fileName}>{file.name}</span>
-                  <span className={styles.fileSize}>
-                    ({formatFileSize(file.size)})
-                  </span>
-                  <button
-                    onClick={() => handleFileRemove(index)}
-                    className={styles.removeFileButton}
-                    aria-label={`${file.name} 파일 삭제`}
-                  >
-                    <X size={16} />
-                  </button>
-                </li>
-              ))}
-            </ul>
+            <div className={styles.list}>
+              <ul className={styles.fileList}>
+                {uploadedFiles.map((file, index) => (
+                  <li key={index} className={styles.fileItem}>
+                    <span className={styles.fileName}>{file.name}</span>
+                    <span className={styles.fileSize}>
+                      ({formatFileSize(file.size)})
+                    </span>
+                    <button
+                      onClick={() => handleFileRemove(index)}
+                      className={styles.removeFileButton}
+                      aria-label={`${file.name} 파일 삭제`}
+                    >
+                      <X size={16} />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
         </div>
       </div>

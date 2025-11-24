@@ -25,6 +25,8 @@ const MOCK_DATA = [
     comments: 45,
     imageUrl:
       "https://cdn.billyapi.com/posts-seo/Image-seo-pregnant%20woman%20room-Korea.jpg",
+    isMine: true, // 내가 작성한 글
+    hasImage: true, // 이미지 있음
   },
   {
     id: 2,
@@ -35,6 +37,8 @@ const MOCK_DATA = [
     views: 85,
     comments: 12,
     imageUrl: "",
+    isMine: false,
+    hasImage: false, // 이미지 없음
   },
   {
     id: 3,
@@ -45,6 +49,8 @@ const MOCK_DATA = [
     views: 342,
     comments: 28,
     imageUrl: "",
+    isMine: false,
+    hasImage: false, // 이미지 없음
   },
   {
     id: 4,
@@ -55,6 +61,8 @@ const MOCK_DATA = [
     views: 56,
     comments: 3,
     imageUrl: "",
+    isMine: false,
+    hasImage: false, // 이미지 없음
   },
   {
     id: 5,
@@ -66,6 +74,8 @@ const MOCK_DATA = [
     comments: 55,
     imageUrl:
       "https://via.placeholder.com/300x200/D8BFD8/ffffff?text=Transport",
+    isMine: true, // 내가 작성한 글
+    hasImage: true, // 이미지 있음
   },
 ];
 
@@ -74,15 +84,37 @@ const CATEGORIES = ["전체", "후기", "무료나눔", "질문"];
 const BoardList = () => {
   const [activeCategory, setActiveCategory] = useState("전체");
 
+  // 신고 혹은 수정 버튼인 드롭다운 메뉴 상태 관리
+  const [openMenuId, setOpenMenuId] = useState(null);
+
+  const handleMenuClick = (e, id) => {
+    e.stopPropagation(); // 카드 클릭 이벤트 전파 방지
+    setOpenMenuId(openMenuId === id ? null : id); // 현재 열려있으면 닫고, 닫혀있으면 엽니다.
+  };
+
+  // 드롭다운 메뉴 항목 클릭 핸들러
+  const handleMenuItemClick = (e, action, id) => {
+    e.stopPropagation(); // 카드 클릭 이벤트 전파 방지
+    setOpenMenuId(null); // 메뉴 닫기
+
+    switch (action) {
+      case "edit":
+        console.log(`[${id}번] 게시글 수정 페이지로 이동`);
+        break;
+      case "delete":
+        console.log(`[${id}번] 게시글 삭제 처리`);
+        break;
+      case "report":
+        console.log(`[${id}번] 게시글 신고 처리`);
+        break;
+      default:
+        break;
+    }
+  };
+
   // 카드 클릭 시 이동 함수
   const handleCardClick = (id) => {
     console.log(`${id}번 게시글로 이동!`);
-  };
-
-  // 메뉴 버튼 클릭 시 카드 클릭 이벤트 막기
-  const handleMenuClick = (e) => {
-    e.stopPropagation(); // 이벤트 전파 방지
-    console.log("메뉴 열기");
   };
 
   const navigate = useNavigate();
@@ -137,24 +169,68 @@ const BoardList = () => {
             <li
               key={item.id}
               className={styles.card}
-              onClick={() => handleCardClick(item.id)} // 카드 전체 클릭 이벤트
+              onClick={() => handleCardClick(item.id)}
             >
               {/* 카드 상단 이미지 영역 */}
-              <div className={styles.cardHeader}>
-                <img
-                  src={item.imageUrl}
-                  alt={item.title}
-                  className={styles.cardImage}
-                />
+              <div
+                className={`${styles.cardHeader} ${
+                  !item.imageUrl ? styles.noImage : "" // 이미지 없을 때 noImage 클래스 추가
+                }`}
+              >
+                {/* 이미지 태그 - 이미지 URL이 있을 때만 렌더링 */}
+                {item.imageUrl && (
+                  <img
+                    src={item.imageUrl}
+                    alt={item.title}
+                    className={styles.cardImage}
+                  />
+                )}
 
                 {/* 오버레이 메뉴 버튼 */}
                 <button
                   className={styles.menuBtn}
                   aria-label="옵션 더보기"
-                  onClick={handleMenuClick} // 이벤트 전파 방지 적용
+                  onClick={(e) => handleMenuClick(e, item.id)} // id 전달
                 >
                   <MoreHorizontal size={24} color="#696b70" />
                 </button>
+
+                {/* 드롭다운 메뉴 렌더링 (조건부) */}
+                {openMenuId === item.id && (
+                  <div className={styles.dropdownMenu}>
+                    {item.isMine ? (
+                      // 내가 작성한 글일 때: 수정, 삭제
+                      <>
+                        <button
+                          className={styles.menuItem}
+                          onClick={(e) =>
+                            handleMenuItemClick(e, "edit", item.id)
+                          }
+                        >
+                          수정
+                        </button>
+                        <button
+                          className={styles.menuItem}
+                          onClick={(e) =>
+                            handleMenuItemClick(e, "delete", item.id)
+                          }
+                        >
+                          삭제
+                        </button>
+                      </>
+                    ) : (
+                      // 남이 작성한 글일 때: 신고
+                      <button
+                        className={styles.menuItem}
+                        onClick={(e) =>
+                          handleMenuItemClick(e, "report", item.id)
+                        }
+                      >
+                        신고
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
 
               {/* 텍스트 내용 */}
