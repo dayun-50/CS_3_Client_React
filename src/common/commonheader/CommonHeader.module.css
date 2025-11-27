@@ -37,6 +37,7 @@
 .logoIcon {
   width: 40px;
   height: 40px;
+  border: none;
 }
 
 /* 메뉴 아이템 컨테이너 */

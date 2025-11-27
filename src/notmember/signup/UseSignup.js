@@ -46,7 +46,6 @@ function useSignup(navigate) {
 
     // 전화번호 입력창 정수만 입력하게 막는 로직
     const handleIntegerInput = (e) => {
-        if (e.data === null) return;
         if (!/^\d+$/.test(e.data)) { e.preventDefault(); }
     }
 
