@@ -66,8 +66,9 @@ const useAuthStore = create((set) => ({
     set({ token: "", id: "", isLogin: false });
   },
 
-  setBabyDueDate: () => {
-
+  setBabyDueDate: (duedate) => {
+    sessionStorage.setItem("babyDueDate", duedate);
+    set({ babyDueDate: duedate });
   }
 }));
 export default useAuthStore;

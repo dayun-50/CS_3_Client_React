@@ -2,10 +2,12 @@ import { caxios } from "config/config";
 import { calculateFetalWeek } from "member/utils/pregnancyUtils";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useAuthStore from "store/useStore";
 
 export function UseDiaryWrite() {
     const navigate = useNavigate();
-
+    const babyDueDate = sessionStorage.getItem("babyDueDate");
+    const babySeq = sessionStorage.getItem("babySeq");
 
     //--------------------------------상태변수 모음
     const [content, setContent] = useState("");
@@ -36,8 +38,8 @@ export function UseDiaryWrite() {
 
     //--------------------------------작성 완료시
     const handleComplete = async () => {
-        //if (!editorInstance) return;
-        console.log(calculateFetalWeek(), "애기주차")
+        if (!editorInstance) return;
+
 
         const title = titleRef.current?.value || "";
         // tiptap 에디터 텍스트 추출
@@ -51,15 +53,20 @@ export function UseDiaryWrite() {
 
         const form = new FormData();
         // 1) 에디터 JSON 담기
+        form.append("title", titleRef.current.value);
         const contentJSON = editorInstance.getJSON(); //컨텐츠
         form.append("content", JSON.stringify(contentJSON));
+        // 2) 이미지 리스트 담기
         const imageSysList = extractImages(contentJSON); //이미지의 시스네임 리스트
         form.append("imageSysList", JSON.stringify(imageSysList));
+        //3) 태아 주차 계산
+        const todayKST = new Date().toLocaleDateString('ko-KR', {
+            timeZone: 'Asia/Seoul'
+        }).replace(/\./g, '-').replace(/\s/g, '').replace(/-$/, '');
+        form.append("pregnancy_week", calculateFetalWeek(babyDueDate, todayKST));//임신주차
+        //4) 아기 시퀀스
+        form.append("babySeq", babySeq);
 
-
-        // 2) 나머지 값 담기
-        form.append("title", titleRef.current.value);
-        console.log(contentJSON, imageSysList)
 
         try {
             await caxios.post("/diary", form)
