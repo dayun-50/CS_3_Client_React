@@ -25,12 +25,14 @@
   margin: 0 auto;
 }
 
-/* 좌측 섹션 (로고 + 메뉴) */
+/* ==============================
+   좌측 섹션 (로고 + 메뉴)
+   ============================== */
 .leftSection {
   height: 100%;
   display: flex;
   align-items: center;
-  gap: 40px; /* 메뉴 간 간격 */
+  gap: 40px;
 }
 
 /* 로고 */
@@ -48,7 +50,7 @@
   gap: 24px;
 }
 
-/* 메뉴 아이템 (Link/버튼) */
+/* 메뉴 아이템 */
 .menuItemBox {
   height: 100%;
   display: flex;
@@ -75,7 +77,12 @@
   color: #f0d827;
 }
 
-/* 밑줄 기본 (숨김) */
+.menuActive .menuItem {
+  font-weight: bold;
+  color: #f0d827;
+}
+
+/* 밑줄 기본 */
 .menuItemBox::after {
   content: "";
   position: absolute;
@@ -97,11 +104,19 @@
   width: 100%;
 }
 
-/* 우측 아이콘 */
+/* ==============================
+   우측 섹션 (아이콘 및 드롭다운)
+   ============================== */
 .rightSection {
   display: flex;
   align-items: center;
   gap: 16px;
+  z-index: 10;
+}
+
+.bellIcon {
+  width: 30px;
+  height: 30px;
 }
 
 .helpIcon {
@@ -123,9 +138,104 @@
   align-items: center;
   justify-content: center;
   color: inherit;
+
+  color: #696b70;
+  transition: color 0.2s;
 }
 
-/* 로그인 & 회원가입 */
+.iconButton:hover {
+  color: #333;
+}
+
+/* 알림 버튼과 드롭다운을 묶는 컨테이너 */
+.notificationContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  z-index: 1001;
+}
+
+/* 알림 드롭다운 스타일 */
+.bellDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 10px;
+  width: 320px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid #eee;
+  padding: 10px 0;
+  z-index: 1000;
+  color: #333;
+  font-size: 14px;
+}
+
+/* 드롭다운 헤더 (제목) */
+.dropdownHeader {
+  padding: 8px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.newAlert {
+  background-color: #f0d827;
+  color: #333;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* 각 알림 항목 */
+.alertItem {
+  padding: 10px 15px;
+  border-bottom: 1px solid #f9f9f9;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.alertItem:hover {
+  background-color: #f5f5f5;
+}
+
+.alertContent {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.alertTime {
+  display: block;
+  font-size: 12px;
+  color: #999;
+  margin-top: 2px;
+}
+
+/* 모든 알림 보기 링크 */
+.viewAll {
+  padding: 8px 15px 0;
+  text-align: center;
+}
+
+.viewAll a {
+  color: #adb9e3;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.viewAll a:hover {
+  text-decoration: underline;
+}
+
+/* ==============================
+   로그인 & 회원가입 버튼
+   ============================== */
 .authButtons {
   display: flex;
   align-items: center;
@@ -144,6 +254,10 @@
   text-decoration: none;
   font-size: 16px;
   font-family: Pretendard;
+  transition: transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .signUpBtn {
@@ -153,7 +267,7 @@
 .signUpBtn:hover {
   background-color: #adb9e3;
   font-weight: bold;
-  transform: scale(0.92);
+  transform: scale(0.98); /* 0.92 대신 0.98로 변경하여 자연스러운 축소 효과 */
 }
 
 .loginBtn {
@@ -163,5 +277,5 @@
 
 .loginBtn:hover {
   background-color: #f0d827;
-  transform: scale(0.92);
+  transform: scale(0.98); /* 0.92 대신 0.98로 변경하여 자연스러운 축소 효과 */
 }
