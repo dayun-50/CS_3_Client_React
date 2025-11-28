@@ -14,14 +14,44 @@ const ChartInput = ({ menuList, activeMenu, currentWeek, inputs, setInputs, actu
 
   const { id, babySeq } = useAuthStore();
 
+
+
+
   const handleChange = (key, value) => {
+    console.log("응애", key, ":", value)
     setInputs((prev) => ({ ...prev, [key]: value }));
   };
 
   const handleSubmit = async () => {
-    await submitChartData({ inputs, date, babySeq, id, measureTypes });
-    // 저장 완료 후 상태 처리
-    setIsEditing(false);
+
+    console.log("📌 현재 inputs:", inputs);
+    console.log("📌 현재 date:", date);
+    console.log("📌 빈값 체크 결과:", Object.keys(inputs).filter(key => !inputs[key]));
+
+
+
+    //날짜 검사
+    if (!date || date.trim() === "") {
+      alert("날짜를 입력해주세요.");
+      return;
+    }
+
+    //미입력 필드 검사
+    const hasEmptyField = Object.values(inputs).some(
+      (value) => value === undefined || value === null || value === ""
+    );
+
+    if (hasEmptyField) {
+      alert("입력되지 않은 항목이 있습니다.");
+      return;
+    }
+    //서버 전송
+    const res = await submitChartData({ inputs, date, babySeq, id, measureTypes });
+    if (res?.data) {
+      // 성공 시 차트 데이터 갱신
+      // ⬇ 부모 컴포넌트에서 setActualData 하도록 props로 받아 넣거나 or zustand로 처리
+      setIsEditing(false);
+    }
   };
 
   const handleEdit = () => setIsEditing(true);
@@ -33,6 +63,8 @@ const ChartInput = ({ menuList, activeMenu, currentWeek, inputs, setInputs, actu
   const todayStr = new Date().toISOString().split("T")[0];
 
   useEffect(() => {
+
+
     if (actualData?.measure_date) {
       let formattedDate;
 

@@ -30,9 +30,8 @@ const BabyController = ({ isSidebar }) => {
 
   return (
     <div
-      className={`${styles.rightcontainer} ${
-        isSidebar ? styles.sidebarContainer : ""
-      }`}
+      className={`${styles.rightcontainer} ${isSidebar ? styles.sidebarContainer : ""
+        }`}
     >
       <div className={styles.full}>
         <div className={styles.one}>
@@ -42,11 +41,7 @@ const BabyController = ({ isSidebar }) => {
                 key={index}
                 className={`${babySeq == baby.baby_seq ? styles.ingbaby1 : styles.ingbaby
                   }`}
-<<<<<<< HEAD
-                onClick={() => changeBaby(baby.baby_seq)}
-=======
                 onClick={() => changeBaby(baby.baby_seq, baby.birth_date)}
->>>>>>> de033a3d661cb49aac31d63b1e6f0b1753f1aedb
               >
                 <div className={styles.bbb}>
                   <img
