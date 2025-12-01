@@ -2,7 +2,7 @@ import styles from "./BabySideNavi.module.css";
 import { X, LogOut } from "lucide-react";
 import BabyController from "./babyController/BabyController";
 import BabyButton from "../../member/babyIndex/babyButton/BabyButton";
-import { useBabyBox } from "member/babyIndex/babyBox/useBabyBox";
+
 
 const BabySideNavi = ({ onClose }) => {
   const bornDueDate = sessionStorage.getItem("babyDueDate");

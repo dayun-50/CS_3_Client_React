@@ -27,6 +27,7 @@ export function UseDiaryNavi({ selectedWeek, setSelectedWeek, selectedDiaryId, s
     const handleWeekClick = (week) => {
         navigate(`/diary?week=${week}`);
         setSelectedWeek((prevWeek) => (prevWeek === week ? null : week));
+        setSelectedDiaryId(null); // 주차 변경 시 선택된 일기 초기화
     };
 
     // 일기 상세 보기 핸들러

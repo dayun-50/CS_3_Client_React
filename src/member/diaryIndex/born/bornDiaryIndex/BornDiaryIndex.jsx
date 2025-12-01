@@ -5,12 +5,13 @@ import EverydayWrite from "../everydayWrite/EverydayWrite";
 import styles from "./BornDiaryIndex.module.css";
 
 //하루일기 인덱스 "/diary/" 여기까지 라우팅
-const BornDiaryIndex = () => {
+const BornDiaryIndex = ({ setIsBorn }) => {
   const navigate = useNavigate();
 
   // '산모수첩' 버튼 클릭 시
   const handleNavigateBack = () => {
-    navigate(-1); // 여기서는 간단히 이전 페이지로 돌아가도록 설정
+    setIsBorn(false); // 부모 컴포넌트의 isBorn 상태를 false로 변경하면 자동으로 산모수첩으로 이동
+    navigate('/diary');
   };
 
   return (
