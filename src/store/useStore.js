@@ -39,8 +39,8 @@ import { create } from "zustand";
 const useAuthStore = create((set) => ({
   token: "",
   id: "",
-  isLogin: true,
-  babySeq: 1,
+  isLogin: false,
+  babySeq: 0,
   babyDueDate: 0, //임신한 아기이면 출산 예정일, 태어난 아기이면 생일
 
   getbabySeq: (seq) => {
