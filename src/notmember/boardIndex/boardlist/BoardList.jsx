@@ -199,7 +199,7 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
                     </div>
                     <div className={styles.statItem}>
                       <MessageCircle size={16} />
-                      <span>댓글수 넣기</span>
+                      <span>{item.board.is_reported}</span>
                     </div>
                   </div>
                 </div>
