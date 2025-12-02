@@ -5,11 +5,11 @@ import FindId from "../../findid/FindId";
 import FindPw from "../../findpw/FindPw";
 import useLoginBox from "./UseLoginBox";
 
-function LoginBox({setBabySeq}) {
+function LoginBox({setBabySeq, setAlerts}) {
 
   const {
     data, authAlert, handleChange, handleComplete, handleLoginKeyUp
-  } = useLoginBox(setBabySeq);
+  } = useLoginBox(setBabySeq, setAlerts);
 
   return (
     <div

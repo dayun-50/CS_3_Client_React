@@ -51,7 +51,7 @@ const BoardDetail = ({ handleDeleteBoard, handleEditBoard }) => {
   } = UseBoardDetail({ handleDeleteBoard, handleEditBoard });
 
   const [reportOpen, setReportOpen] = useState(false);
-
+  const [reportTargetSeq, setReportTargetSeq] = useState(null);
 
 
 
@@ -105,9 +105,10 @@ const BoardDetail = ({ handleDeleteBoard, handleEditBoard }) => {
                       <button
                         className={styles.menuItem}
                         onClick={(e) => {
-    handlePostMenuItemClick(e, "신고", targetBoard.board_seq);
-    setReportOpen(true);
-}}
+                          handlePostMenuItemClick(e, "신고", targetBoard.board_seq);
+                          setReportOpen(true);
+                          setReportTargetSeq(targetBoard.board_seq);
+                        }}
                       >
                         신고
                       </button>
@@ -217,12 +218,13 @@ const BoardDetail = ({ handleDeleteBoard, handleEditBoard }) => {
       </div>
 
       <BoardOver
-  isOpen={reportOpen}
-  onClose={() => setReportOpen(false)}
-/>
+        isOpen={reportOpen}
+        onClose={() => setReportOpen(false)}
+        boardSeq={reportTargetSeq}
+      />
     </div >
 
-    
+
   );
 };
 

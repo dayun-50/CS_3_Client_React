@@ -23,6 +23,7 @@ const CommentItem =
 
 
         const [reportOpen, setReportOpen] = useState(false);
+        const [selectedCommentSeq, setSelectedCommentSeq] = useState(null);
 
         return (
             <div className={wrapperClass} >
@@ -61,6 +62,7 @@ const CommentItem =
                                                 onClick={(e) => {
                                                     handleCommentMenuItemClick(e, "신고", comment.comment_seq, comment.comment_content);
                                                     setReportOpen(true);
+                                                    setSelectedCommentSeq(comment.comment_seq);
                                                 }}
                                             >
                                                 신고
@@ -121,11 +123,12 @@ const CommentItem =
                         />
                     ))}
 
-                    
-                    <BoardOver
-  isOpen={reportOpen}
-  onClose={() => setReportOpen(false)}
-/>
+
+                <BoardOver
+                    isOpen={reportOpen}
+                    onClose={() => setReportOpen(false)}
+                    commentSeq={selectedCommentSeq}
+                />
             </div>
         );
     };

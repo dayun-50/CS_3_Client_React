@@ -22,7 +22,7 @@ import ChooseType from "../../member/chooseType/ChooseType";
 //메인 인덱스 페이지
 //여기서 로그인 여부에 따라서 보이고 안보이는게 다르게 만들어야함
 // "/"밑으로 들어가느 라우팅
-const MainIndex = () => {
+const MainIndex = ({alerts, setAlerts, newAlerts, setNewAlerts}) => {
   const { isLogin, babySeq } = useAuthStore((state) => state);
 
   const location = useLocation(); //현재 URL 경로
@@ -50,7 +50,7 @@ const MainIndex = () => {
       {/* 컨테이너 영역 */}
       {/* 헤더 영역 */}
       <header className={styles.MemberHeader}>
-        <CommonHeader isLogin={isLogin} />
+        <CommonHeader isLogin={isLogin} alerts={alerts} setAlerts={setAlerts} newAlerts={newAlerts} setNewAlerts={setNewAlerts}/>
       </header>
       {/* 바디 영역 */}
       <div className={mainLayoutClassName}>

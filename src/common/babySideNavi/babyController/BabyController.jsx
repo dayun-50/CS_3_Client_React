@@ -51,8 +51,12 @@ const BabyController = ({ isSidebar }) => {
                     alt="babyface"
                     className={styles.babyfaceImage}
                   />
-                  <div className={styles.babyname}>{baby.name}</div>
-                  <div className={styles.how}>{getKoreanOrder(index + 1)}</div>
+                  <div>
+                    <div className={styles.babyname}>{baby.name}</div>
+                    <div className={styles.how}>
+                      {getKoreanOrder(index + 1)}
+                    </div>
+                  </div>
                 </div>
               </button>
             ))}

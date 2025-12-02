@@ -47,7 +47,7 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
 
   const [reportOpen, setReportOpen] = useState(false);
 
-
+  const [selectedBoardSeq, setSelectedBoardSeq] = useState(null);
 
 
 
@@ -170,7 +170,8 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
                           className={styles.menuItem}
                           onClick={(e) => {
                             handleMenuItemClick(e, "report", item.board.board_seq);
-                            setReportOpen(true)
+                            setReportOpen(true);
+                            setSelectedBoardSeq(item.board.board_seq);
                           }}
                         >
                           신고
@@ -217,6 +218,7 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
         <BoardOver
           isOpen={reportOpen}
           onClose={() => setReportOpen(false)}
+          boardSeq={selectedBoardSeq}
         />
       )}
     </div>

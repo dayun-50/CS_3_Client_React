@@ -1,24 +1,19 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./CommonHeader.module.css";
 import { HelpCircle, Menu, Bell } from "lucide-react";
 import log from "./imgs/log.svg";
 import BabySideNavi from "../babySideNavi/BabySideNavi";
+import UseCommonHeader from "./UseCommonHeader";
+import useAuthStore from "store/useStore";
 
-const CommonHeader = ({ isLogin }) => {
+const CommonHeader = ({ isLogin, alerts, setAlerts, newAlerts, setNewAlerts}) => {
+  const { id } = useAuthStore(state => state);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isBellOpen, setIsBellOpen] = useState(false); // 알림 드롭다운 상태 추가
 
-  //알람 드롭 다운 확인용
-  const dummyAlerts = [
-    { id: 1, content: "새로운 댓글이 달렸어요." },
-    { id: 2, content: "새로운 아기가 등록되었어요." },
-    { id: 3, content: "커뮤니티 인기글이 업데이트되었어요." },
-    { id: 4, content: "몸무게 기록이 업데이트되었어요." },
-    { id: 5, content: "몸무게 기록이 업데이트되었어요." },
-  ];
-
   const location = useLocation();
+  const {clickAlarm} = UseCommonHeader(setAlerts, setNewAlerts);
 
   const toggleSideNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -27,7 +22,14 @@ const CommonHeader = ({ isLogin }) => {
   const closeSideNav = () => setIsNavOpen(false);
 
   const toggleBellDropdown = () => {
-    setIsBellOpen(!isBellOpen);
+    setIsBellOpen(prev => {
+      const newState = !prev;
+      if (newState === false) {
+        // 드롭다운을 닫을 때 newAlerts false로
+        setNewAlerts(false);
+      }
+      return newState;
+    });
     setIsNavOpen(false); // 알림 열 때 사이드바 닫기
   };
 
@@ -48,9 +50,8 @@ const CommonHeader = ({ isLogin }) => {
             <div className={styles.menuItems}>
               {/* 커뮤니티 메뉴 (항상 보임) */}
               <div
-                className={`${styles.menuItemBox} ${
-                  isPathActive("/board") ? styles.menuActive : ""
-                }`}
+                className={`${styles.menuItemBox} ${isPathActive("/board") ? styles.menuActive : ""
+                  }`}
               >
                 <Link to="/board" className={styles.menuItem}>
                   커뮤니티
@@ -60,9 +61,8 @@ const CommonHeader = ({ isLogin }) => {
               {/* 로그인한 경우만 마이페이지 표시 */}
               {isLogin && (
                 <div
-                  className={`${styles.menuItemBox} ${
-                    isPathActive("/mypage") ? styles.menuActive : ""
-                  }`}
+                  className={`${styles.menuItemBox} ${isPathActive("/mypage") ? styles.menuActive : ""
+                    }`}
                 >
                   <Link to="/mypage" className={styles.menuItem}>
                     마이페이지
@@ -83,22 +83,27 @@ const CommonHeader = ({ isLogin }) => {
                     onClick={toggleBellDropdown}
                     className={styles.iconButton}
                   >
-                    <Bell className={styles.bellIcon} />
+                    <Bell
+                      className={`${styles.bellIcon} ${newAlerts ? styles.bellIconAlert : ""}`}
+                    />
                   </button>
 
-                  {/* 알림 드롭다운 콘텐츠 */}
                   {isBellOpen && (
                     <div className={styles.bellDropdown}>
                       <div className={styles.dropdownHeader}>
                         알림
-                        <span className={styles.newAlert}>New</span>
+                        {newAlerts && <span className={styles.newAlert}>New</span>}
                       </div>
 
-                      {dummyAlerts.map((alert) => (
-                        <div key={alert.id} className={styles.alertItem}>
-                          <p className={styles.alertContent}>{alert.content}</p>
-                        </div>
-                      ))}
+                      {alerts.length > 0 ? (
+                        alerts.map((alert, idx) => (
+                          <div key={idx} className={styles.alertItem} onClick={() => clickAlarm(alert)}>
+                            <p className={styles.alertContent}>{alert.message}</p>
+                          </div>
+                        ))
+                      ) : (
+                        <div>알람이 없습니다.</div>
+                      )}
                     </div>
                   )}
                 </div>

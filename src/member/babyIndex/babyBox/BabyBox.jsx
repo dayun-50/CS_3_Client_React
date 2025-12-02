@@ -57,14 +57,9 @@ const imageVariantsParenting = {
  */
 // 기본값 설정: Prop이 없으면 테스트 값으로 대체
 const BabyBox = ({ setIsBorn }) => {
-
-  const {
-    data,
-    isDuePassed,
-    dueDateStatus,
-    isParenting
-  } = useBabyBox({ setIsBorn });
-
+  const { data, isDuePassed, dueDateStatus, isParenting } = useBabyBox({
+    setIsBorn,
+  });
 
   // 렌더링할 이미지 세트 결정 - 아기 이미지
   let backgroundImage = backgrond;
@@ -74,7 +69,6 @@ const BabyBox = ({ setIsBorn }) => {
     backgroundImage = backgrond2;
     mainImage = toddlers;
   }
-
 
   return (
     <div className={styles.container}>

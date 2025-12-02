@@ -18,7 +18,7 @@
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column; /* 상단 BabyController / 하단 BabyCheckList 세로 정렬 */
+  flex-direction: column;
 }
 
 /* ==============================
@@ -36,7 +36,10 @@
   width: 97%;
   height: 91%;
   display: flex;
+  flex-direction: row; /* 기본 가로 정렬 유지 */
   gap: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 /* --------------------------------------------------
@@ -186,12 +189,12 @@
    ============================== */
 .modalContentone,
 .modalContenttwo {
-  flex: 1; /* 부모 대비 균등 분배 */
-  height: 100%; /* 부모 높이에 맞춤 */
+  flex: 1;
+  height: 100%;
   background-color: white;
   border-radius: 22px;
   display: flex;
-  flex-direction: column; /* 버튼 내부는 세로 */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 15px;
@@ -211,7 +214,7 @@
 .modalone,
 .modaltwo {
   display: flex;
-  flex-direction: column; /* 버튼 내부 내용은 세로 */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 8px;
@@ -240,7 +243,7 @@
 
 .modalContentone:hover .babyImg,
 .modalContenttwo:hover .childrenImg {
-  transform: scale(1.1); /* 조금만 확대 */
+  transform: scale(1.1);
   transition: transform 0.3s ease;
 }
 
@@ -272,120 +275,103 @@
 }
 
 /* ==============================
-   기존 잉여 스타일 (참고용)
-   ============================== */
-.ing {
-  width: 20%;
-  border: 2px solid #f0d827;
-  background-color: white;
-  border-radius: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.ing:hover {
-  background-color: #fff4d6;
-  width: 22%;
-}
-
-.ing:hover img,
-.ing:hover .name,
-.ing:hover .howtwo {
-  transform: scale(1.1);
-  transition: 0.3s;
-}
-
-.b {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
-.name {
-  font-size: 20px;
-  font-weight: bold;
-  color: #696b70;
-}
-
-.howtwo {
-  font-size: 16px;
-  font-weight: bold;
-  color: #696b70;
-}
-
-/* ==============================
    사이드바 전용 스타일 (세로 레이아웃)
    ============================== */
 .sidebarContainer {
+  display: flex;
   flex-direction: column;
-}
-
-/* 아기 선택 박스 영역 */
-.sidebarContainer .sidebarOne {
-  flex: 1;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-
-/* 아기 버튼 리스트 */
-.sidebarContainer .sidebarBabyClick {
   width: 100%;
-  height: 100%;
-  flex-direction: column;
-  gap: 15px;
+}
 
-  /* 세로 스크롤 설정 */
+/* 리스트 전체 */
+.sidebarContainer .babyclick {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   overflow-y: auto;
   overflow-x: hidden;
-  padding-right: 10px;
+  padding: 8px 0;
 }
 
-/* 세로 모드 버튼 크기 조정 */
+/* 기본/선택된 아기 카드 공통 스타일 */
+.sidebarContainer .ingbaby,
 .sidebarContainer .ingbaby1 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: var(--color-white);
+  border-radius: 12px;
+  border: 1px solid var(--color-font-back);
   width: 100%;
-  height: 80px;
+  height: 70px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  box-sizing: border-box;
 }
 
-/* 일반 아기 버튼*/
-.sidebarContainer .ingbaby {
-  width: 100%;
+/* 선택된 아기 강조 */
+.sidebarContainer .ingbaby1 {
+  border: 2px solid var(--color-primary);
+  background: var(--color-sud-color1);
+  height: 90px;
 }
 
-/* + 버튼 */
-.sidebarContainer .plusbb {
-  width: 100%;
-  height: 48px;
-  gap: 10px;
+/* 사이드바일 때 내부 bbb 구조도 가로로 전환 */
+.sidebarContainer .bbb {
+  display: flex;
+  flex-direction: row !important;
+  align-items: center;
+  gap: 16px;
 }
 
-/* 호버 효과 조정 */
-.sidebarContainer .ingbaby:hover {
-  width: 100%;
-  border: 2px solid #f0d827;
-  background-color: #fff4d6;
+/* 아기 이미지 */
+.sidebarContainer .bbb img {
+  width: 55px;
+  height: 55px;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
+/* 이름/텍스트 박스 */
+.sidebarContainer .bbb > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* 이름 텍스트 */
+.sidebarContainer .babyname {
+  font-size: 16px;
+  color: #333;
+}
+
+/* 'how' 텍스트 숨김 */
+.sidebarContainer .how {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* hover */
+.sidebarContainer .ingbaby:hover,
 .sidebarContainer .plusbb:hover {
-  width: 100%;
-  border: 2px solid #f0d827;
-  background-color: #fff4d6;
+  border: 2px solid var(--color-primary);
+  background-color: var(--color-sud-color1);
+  transform: scaleY(1.08); /* 세로 5% 확대 */
+  transition: transform 0.3s ease;
 }
 
+/* 모달 동일 유지 */
 .sidebarContainer .modal {
-  position: fixed; /* <-- 이 속성이 핵심입니다. */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* 전체 화면을 덮는 반투명 배경 */
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
-  align-items: center; /* 모달 내용을 화면 중앙에 배치 */
-  /* ... */
-  z-index: 1000; /* 사이드바 (z-index: 999) 보다 위에 표시 */
+  align-items: center;
+  z-index: 1000;
 }

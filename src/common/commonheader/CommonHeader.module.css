@@ -122,6 +122,12 @@
   height: 30px;
 }
 
+/* 알람표시! 혜빈 야매추가~ */
+.bellIconAlert
+{
+  background-color: #f0d827;
+}
+
 .helpIcon {
   width: 32px;
   height: 32px;

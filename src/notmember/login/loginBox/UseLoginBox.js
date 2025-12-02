@@ -2,14 +2,12 @@ import { useState } from "react";
 import { caxios } from "../../../config/config";
 import useAuthStore from "../../../store/useStore";
 import { useNavigate } from "react-router-dom";
-import { connectWebSocket } from "common/webSocket/connectWebSocket";
+import { connectWebSocket, sendMessage } from "common/webSocket/connectWebSocket";
 
-function useLoginBox() {
+function useLoginBox(setBabySeq, setAlerts) {
     // 로그인 준비
     const { login, getbabySeq, setBabyDueDate } = useAuthStore((state) => state);
     const navigate = useNavigate();
-
-    const [alerts, setAlerts] = useState([]);
 
     // 값 받을 준비
     const [data, setData] = useState({ id: "", pw: "" });
@@ -36,10 +34,31 @@ function useLoginBox() {
                 const babyseq = Number(resp.data.babySeq);
                 login(resp.data.token, data.id);
                 getbabySeq(babyseq);
-                connectWebSocket(resp.data.token, (alert) => {
+                // WebSocket 연결 및 알람 수신
+                connectWebSocket(resp.data.token, data.id, (alert) => {
                     console.log('알람 수신:', alert);
-                    setAlerts(prev => [...prev, alert]);
+
+                    let message = "";
+                    if (alert.type === "C") {
+                        if (alert.comment_seq && alert.comment_seq !== "null") {
+                            message = "댓글에 댓글이 입력되었습니다.";
+                        } else {
+                            message = "게시물에 댓글이 입력되었습니다.";
+                        }
+                    } else {
+                        if (alert.comment_seq && alert.comment_seq !== "null") {
+                            message = "댓글이 관리자에 의해 삭제되었습니다.";
+                        } else {
+                            message = "게시물이 관리자에 의해 삭제되었습니다.";
+                        }
+                    }
+
+                    const processedAlert = { ...alert, message };
+                    setAlerts(prev => [processedAlert, ...prev]);
                 });
+                //  sendMessage("/pub/notify/init", data.id);
+
+
                 setBabyDueDate(resp.data.babyDueDate);
                 if (babyseq == 0) {
                     navigate("/chooseType");

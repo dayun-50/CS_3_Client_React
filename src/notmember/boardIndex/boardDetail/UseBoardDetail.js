@@ -99,11 +99,10 @@ export function UseBoardDetail({ initialComments, handleDeleteBoard, handleEditB
                     comment_content: commentContent
                 })
                     .then(resp => {
-                        sendMessage("/app/notify", {
-                            type: "NEW_COMMENT",
+                        sendMessage("/pub/notify", {
+                            user_id: id,
                             board_seq: Number(seq),
-                            parent_comment_seq: parentCommentId,
-                            comment_content: commentContent
+                            parent_comment_seq: parentCommentId
                         });
                     });
 
@@ -190,9 +189,10 @@ export function UseBoardDetail({ initialComments, handleDeleteBoard, handleEditB
     useEffect(() => {//처음 게시글 정보 가져오기
         if (viewOnceRef.current) return;
 
-        viewOnceRef.current = true;
+        // viewOnceRef.current = true;
         reloadComments();
     }, [seq]);
+
 
 
     useEffect(() => {//에디터 내용 복원(json 파싱)
@@ -204,7 +204,7 @@ export function UseBoardDetail({ initialComments, handleDeleteBoard, handleEditB
         } catch (e) {
             console.error("에디터 복원 실패", e);
         }
-    }, [editor, targetBoard]);
+    }, [editor, targetBoard, seq]);
 
 
 
