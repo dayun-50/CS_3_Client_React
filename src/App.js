@@ -8,6 +8,7 @@ import MainIndex from './notmember/mainIndex/MainIndex';
 import ChooseType from "./member/chooseType/ChooseType.jsx";
 import useAuthStore from './store/useStore.js';
 import InputBaby from "./member/inputBaby/InputBaby";
+import "./styles/them.css";
 
 function App() {
   const { login, isLogin, getbabySeq, setBabyDueDate } = useAuthStore((state) => state);

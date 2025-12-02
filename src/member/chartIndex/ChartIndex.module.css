@@ -6,8 +6,8 @@
   height: 100%;
   flex: 1;
   box-sizing: border-box;
-  font-family: Pretendard;
-  color: #696b70;
+  font-family: var(--font-family);
+  color: var(--color-font-color1);
 }
 
 /* 상단 메뉴 영역 */
@@ -17,7 +17,7 @@
   gap: 24px;
   width: 100%;
   justify-content: flex-start;
-  margin-bottom: 26px;
+  margin-bottom: 20px;
   flex-shrink: 0;
 }
 
@@ -27,7 +27,7 @@
   flex-shrink: 0;
   width: 200px;
   height: 48px;
-  border-radius: 22px;
+  border-radius: var(--border-radius-main);
   font-size: 18px;
   padding: 0 16px;
   box-sizing: border-box;
@@ -37,16 +37,16 @@
 
 /* 활성 버튼 스타일 */
 .menuActive {
-  background-color: #adb9e3;
-  color: #fff;
+  background-color: var(--color-main);
+  color: var(--color-white);
   font-weight: 800;
 }
 
 /* 비활성 버튼 스타일 */
 .menuButton {
   background-color: transparent;
-  border: 2px solid #adb9e3;
-  color: #696b70;
+  border: 2px solid var(--color-main);
+  color: var(--color-font-color1);
 }
 
 /* 메인 컨텐츠 (TotalChart + ChartInput을 감쌈) */
