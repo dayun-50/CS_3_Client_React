@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./ChartInput.module.css";
-import { submitChartData } from "./UseChartInput"; // JS 분
+import { submitChartData, updateChartData } from "./UseChartInput"; // JS 분
 import useAuthStore from "../../../store/useStore";
 import { FETAL_STANDARDS } from "../FetalStandardData";
 import { fetalWeekStartEnd } from "member/utils/pregnancyUtils";
@@ -11,7 +11,6 @@ const ChartInput = ({ menuList, activeMenu, currentWeek, isFetalMode, inputs, se
   const [date, setDate] = useState("");
   const hasData = actualData && Object.keys(actualData).length > 0;
   const isDisabled = hasData && !isEditing;
-  //  const todayStr = new Date().toLocaleDateString("sv-SE", { timeZone: "Asia/Seoul" });
   const [weekStart, setWeekStart] = useState(null);
   const [weekEnd, setWeekEnd] = useState(null);
 
@@ -107,7 +106,9 @@ const ChartInput = ({ menuList, activeMenu, currentWeek, isFetalMode, inputs, se
         return;
       }
 
-      await submitChartData({ inputs, date, babySeq, id, measureTypes });
+
+
+      await updateChartData({ inputs, date, babySeq, id, actualData });
       setIsEditing(false);
       await fetchActualData();
     }
@@ -128,7 +129,7 @@ const ChartInput = ({ menuList, activeMenu, currentWeek, isFetalMode, inputs, se
     setWeekEnd(end);
     console.log("weekStart / weekEnd:", start, end);
 
-    // 2️⃣ actualData가 있으면 입력값 업데이트
+    //  actualData가 있으면 입력값 업데이트
     if (actualData && Object.keys(actualData).length > 0) {
       console.log("Actual Data:", actualData);
 
@@ -137,6 +138,8 @@ const ChartInput = ({ menuList, activeMenu, currentWeek, isFetalMode, inputs, se
         const formattedDate = new Date(actualData.measure_date)
           .toLocaleDateString("sv-SE", { timeZone: "Asia/Seoul" });
         setDate(formattedDate);
+      } else {
+        setDate(prev => prev || weekStart || "");
       }
 
       // 입력값 매핑
