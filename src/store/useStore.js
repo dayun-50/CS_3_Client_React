@@ -35,7 +35,6 @@
 
 import { create } from "zustand";
 
-
 const useAuthStore = create((set) => ({
   token: "",
   id: "",
@@ -63,7 +62,7 @@ const useAuthStore = create((set) => ({
     sessionStorage.removeItem("id");
     sessionStorage.removeItem("babySeq");
     sessionStorage.removeItem("babyDueDate");
-    set({ token: "", id: "", isLogin: false, babySeq : 0, babyDueDate: 0 });
+    set({ token: "", id: "", isLogin: false, babySeq: 0, babyDueDate: 0 });
 
   },
 
