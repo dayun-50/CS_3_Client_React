@@ -2,10 +2,15 @@ import PrenatalList from "./prenatalList/PrenatalList";
 import SymptomList from "./symptomList/SymptomList";
 import styles from "./CheckListIndex.module.css";
 import UseCheckListIndex from "./UseCheckListIndex";
+import Loading from "common/loading/Loading";
 
 // 주차별 체크리스트
 const CheckListIndex = () => {
   const { babyData } = UseCheckListIndex();
+
+  if (!babyData) {
+    return <Loading message="데이터를 준비하고 있습니다" />;
+  }
 
   return (
     <div className={styles.CheckContainer}>

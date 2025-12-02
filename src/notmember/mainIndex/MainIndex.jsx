@@ -18,14 +18,31 @@ import InputBaby from "../../member/inputBaby/InputBaby";
 import styles from "./MainIndex.module.css";
 import useAuthStore from "../../store/useStore";
 import ChooseType from "../../member/chooseType/ChooseType";
+import Loading from "common/loading/Loading";
+import { useEffect, useState } from "react";
 
 //메인 인덱스 페이지
 //여기서 로그인 여부에 따라서 보이고 안보이는게 다르게 만들어야함
 // "/"밑으로 들어가느 라우팅
-const MainIndex = ({alerts, setAlerts, newAlerts, setNewAlerts}) => {
+const MainIndex = ({ alerts, setAlerts, newAlerts, setNewAlerts }) => {
   const { isLogin, babySeq } = useAuthStore((state) => state);
 
   const location = useLocation(); //현재 URL 경로
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  // 예: 로그인 정보, 초기 데이터 등 준비 후 로딩 해제
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false); // 실제 API 요청 후 false로 바꿀 수 있음
+    }, 500); // 예시로 0.5초 후 로딩 종료
+    return () => clearTimeout(timer);
+  }, []);
+
+  // 로딩 중이면 화면 전체 로딩 표시
+  if (isLoading) {
+    return <Loading message="페이지를 준비하고 있습니다" />;
+  }
 
   // 배경 전체가 노란색이 나와야하는 경로 목록
   const yellowBackgroundPaths = ["/", "/babyIndex", "/babymypage"];
@@ -50,7 +67,13 @@ const MainIndex = ({alerts, setAlerts, newAlerts, setNewAlerts}) => {
       {/* 컨테이너 영역 */}
       {/* 헤더 영역 */}
       <header className={styles.MemberHeader}>
-        <CommonHeader isLogin={isLogin} alerts={alerts} setAlerts={setAlerts} newAlerts={newAlerts} setNewAlerts={setNewAlerts}/>
+        <CommonHeader
+          isLogin={isLogin}
+          alerts={alerts}
+          setAlerts={setAlerts}
+          newAlerts={newAlerts}
+          setNewAlerts={setNewAlerts}
+        />
       </header>
       {/* 바디 영역 */}
       <div className={mainLayoutClassName}>

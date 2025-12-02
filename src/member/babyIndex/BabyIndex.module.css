@@ -40,7 +40,7 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5); /* 반투명 어둡게 */
-  z-index: 1000; /* BabyIndex 위로 */
+  z-index: 1000;
   display: flex;
   justify-content: center;
   align-items: center;

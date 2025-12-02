@@ -8,7 +8,6 @@ import { UseUnBornDiaryIndex } from "./UseUnbornIndex";
 
 //산모수첩 인덱스 "/diary/" 여기까지 라우팅
 const UnBornDiaryIndex = () => {
-
   const {
     selectedWeek,
     setSelectedWeek,
@@ -16,9 +15,8 @@ const UnBornDiaryIndex = () => {
     setSelectedDiaryId,
     getTargetWeekDiary,
     weekDiaries,
-    handleAddDiary
+    handleAddDiary,
   } = UseUnBornDiaryIndex();
-
 
   return (
     <div className={styles.container}>
@@ -38,16 +36,33 @@ const UnBornDiaryIndex = () => {
       <div className={styles.rigth}>
         {/*산모수첩 디테일 or 작성 페이지 라우팅*/}
         <Routes>
-          <Route path="" element={<DiaryDetail selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek}
-            handleAddDiary={handleAddDiary} setSelectedDiaryId={setSelectedDiaryId}
-            getTargetWeekDiary={getTargetWeekDiary} />} /> {/*디테일 다이어리*/}
-          <Route path="write" element={<DiaryWrite getTargetWeekDiary={getTargetWeekDiary}
-            setSelectedDiaryId={setSelectedDiaryId} selectedDiaryId={selectedDiaryId} />} /> {/*다이어리 작성*/}
+          <Route
+            path=""
+            element={
+              <DiaryDetail
+                selectedWeek={selectedWeek}
+                setSelectedWeek={setSelectedWeek}
+                handleAddDiary={handleAddDiary}
+                setSelectedDiaryId={setSelectedDiaryId}
+                getTargetWeekDiary={getTargetWeekDiary}
+              />
+            }
+          />{" "}
+          {/*디테일 다이어리*/}
+          <Route
+            path="write"
+            element={
+              <DiaryWrite
+                getTargetWeekDiary={getTargetWeekDiary}
+                setSelectedDiaryId={setSelectedDiaryId}
+                selectedDiaryId={selectedDiaryId}
+              />
+            }
+          />{" "}
+          {/*다이어리 작성*/}
         </Routes>
       </div>
     </div>
   );
 };
 export default UnBornDiaryIndex;
-
-

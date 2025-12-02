@@ -52,7 +52,6 @@ const BabyIndex = () => {
         </div>
       </motion.div>
       {/* 오른쪽 섹션 */}
-
       <motion.div className={styles.rightSection} variants={sectionVariants}>
         <BabyArticle />
       </motion.div>

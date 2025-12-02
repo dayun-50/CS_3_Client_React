@@ -6,6 +6,8 @@ import ChartInput from "./chartInput/ChartInput"; // 오른쪽 입력 폼 컴포
 import styles from "./ChartIndex.module.css";
 import { FETAL_STANDARDS } from "./FetalStandardData";
 import { caxios } from "../../config/config";
+import Loading from "common/loading/Loading";
+
 import useAuthStore from "../../store/useStore";
 import { useChartIndex } from "./UseChartIndex";
 import { fetalWeekStartEnd, infantWeekStartEnd } from "../utils/pregnancyUtils";
@@ -127,6 +129,9 @@ const ChartIndex = () => {
   const isLoading =
     actualData === null || (isFetalMode && !currentStandardData);
 
+  if (currentWeek === 0 || isLoading) {
+    return <Loading message="데이터를 준비하고 있습니다" />;
+  }
 
   return (
     <div className={styles.body}>

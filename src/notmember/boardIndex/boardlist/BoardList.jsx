@@ -8,7 +8,7 @@ import {
   ChevronRight,
   ChevronsRight,
   Search,
-  X
+  X,
 } from "lucide-react";
 
 import styles from "./BoardList.module.css";
@@ -41,29 +41,26 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
     handleMenuItemClick,
     openMenuId,
     setOpenMenuId,
-    isMine
+    isMine,
   } = UseBoardList({ handleDeleteBoard, handleEditBoard });
-
 
   const [reportOpen, setReportOpen] = useState(false);
 
   const [selectedBoardSeq, setSelectedBoardSeq] = useState(null);
 
-
-
   return (
     <div className={styles.container}>
-
       {/* 카테고리 */}
       <div className={styles.header}>
         {/* 왼쪽 그룹: 카테고리 */}
         <div className={styles.leftGroup}>
           <div className={styles.categoryList}>
-            {Object.keys(CATEGORY_MAP).map(cat => (
+            {Object.keys(CATEGORY_MAP).map((cat) => (
               <button
                 key={cat}
-                className={`${styles.categoryItem} ${activeCategory === cat ? styles.active : ""
-                  }`}
+                className={`${styles.categoryItem} ${
+                  activeCategory === cat ? styles.active : ""
+                }`}
                 onClick={() => handleTopBtn(cat)}
               >
                 {cat}
@@ -108,9 +105,7 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
       {/* 리스트 */}
       <div className={styles.cardGrid}>
         {mergedList.length === 0 ? (
-          <div className={styles.emptyMessage}>
-            게시글이 존재하지 않습니다
-          </div>
+          <div className={styles.emptyMessage}>게시글이 존재하지 않습니다</div>
         ) : (
           <ul className={styles.gridContainer}>
             {mergedList.map((item) => (
@@ -121,8 +116,9 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
               >
                 {/* 카드 상단 이미지 영역 */}
                 <div
-                  className={`${styles.cardHeader} ${!thumbsUrlMap[item.board.board_seq] ? styles.noImage : ""
-                    }`}
+                  className={`${styles.cardHeader} ${
+                    !thumbsUrlMap[item.board.board_seq] ? styles.noImage : ""
+                  }`}
                 >
                   {/* 이미지 있을 때만 출력 */}
                   {thumbsUrlMap[item.board.board_seq] && (
@@ -137,8 +133,8 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
                     className={styles.menuBtn}
                     aria-label="옵션 더보기"
                     onClick={(e) => {
-                      e.stopPropagation()
-                      handleMenuClick(e, item.board.board_seq)
+                      e.stopPropagation();
+                      handleMenuClick(e, item.board.board_seq);
                     }}
                   >
                     <MoreHorizontal size={24} color="#696b70" />
@@ -151,7 +147,11 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
                           <button
                             className={styles.menuItem}
                             onClick={(e) =>
-                              handleMenuItemClick(e, "edit", item.board.board_seq)
+                              handleMenuItemClick(
+                                e,
+                                "edit",
+                                item.board.board_seq
+                              )
                             }
                           >
                             수정
@@ -159,7 +159,11 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
                           <button
                             className={styles.menuItem}
                             onClick={(e) =>
-                              handleMenuItemClick(e, "delete", item.board.board_seq)
+                              handleMenuItemClick(
+                                e,
+                                "delete",
+                                item.board.board_seq
+                              )
                             }
                           >
                             삭제
@@ -169,7 +173,11 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
                         <button
                           className={styles.menuItem}
                           onClick={(e) => {
-                            handleMenuItemClick(e, "report", item.board.board_seq);
+                            handleMenuItemClick(
+                              e,
+                              "report",
+                              item.board.board_seq
+                            );
                             setReportOpen(true);
                             setSelectedBoardSeq(item.board.board_seq);
                           }}
@@ -184,7 +192,10 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
                 <div className={styles.content}>
                   <div className={styles.textGroup}>
                     <span
-                      className={`${styles.categoryTag} ${styles[CATEGORY_MAP_REVERSE[item.board.board_type]]}`}>
+                      className={`${styles.categoryTag} ${
+                        styles[CATEGORY_MAP_REVERSE[item.board.board_type]]
+                      }`}
+                    >
                       {CATEGORY_MAP_REVERSE[item.board.board_type]}
                     </span>
 
@@ -209,9 +220,14 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
         )}
       </div>
 
-
       <div className={styles.pagination}>
-        <PageNaviBar page={page} setPage={setPage} count={count} totalCount={totalCount} typeBtn={typeBtn} />
+        <PageNaviBar
+          page={page}
+          setPage={setPage}
+          count={count}
+          totalCount={totalCount}
+          typeBtn={typeBtn}
+        />
       </div>
 
       {reportOpen && (

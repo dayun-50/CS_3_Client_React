@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import styles from "./SymptomList.module.css";
 import { FETAL_CHECKLIST, BABY_CHECKLIST } from "./list";
@@ -60,7 +60,12 @@ const SymptomList = ({ babyData }) => {
       </div>
       <div className={styles.sectionList}>
         {checklist.map((section, i) => (
-          <WeekSection key={section.id} data={section} index={i} isInfant={isInfant} />
+          <WeekSection
+            key={section.id}
+            data={section}
+            index={i}
+            isInfant={isInfant}
+          />
         ))}
       </div>
     </div>
