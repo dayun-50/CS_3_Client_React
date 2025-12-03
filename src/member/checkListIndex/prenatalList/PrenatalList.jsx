@@ -204,7 +204,7 @@ const PrenatalList = ({ babyData }) => {
                     <input
                       type="date"
                       name="date"
-                      value={data.created_at}
+                      value={data.created_at} 
                       onChange={handelChange}
                       min={
                         checkClicked

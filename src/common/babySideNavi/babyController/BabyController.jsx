@@ -39,9 +39,8 @@ const BabyController = ({ isSidebar }) => {
             {data.map((baby, index) => (
               <button
                 key={index}
-                className={`${
-                  babySeq == baby.baby_seq ? styles.ingbaby1 : styles.ingbaby
-                }`}
+                className={`${babySeq == baby.baby_seq ? styles.ingbaby1 : styles.ingbaby
+                  }`}
                 onClick={() => changeBaby(baby.baby_seq, baby.birth_date)}
               >
                 <div className={styles.bbb}>
@@ -107,7 +106,7 @@ const BabyController = ({ isSidebar }) => {
                     }}
                   >
                     <div className={styles.modalone}>
-                      <h1 className={styles.sanmotitle}>임산모</h1>
+                      <h1 className={styles.sanmotitle}>임산부</h1>
                       <span className={styles.be}>아직 뱃속에 있어요</span>
                       <img
                         src={babyImg}

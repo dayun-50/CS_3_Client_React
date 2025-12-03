@@ -39,16 +39,15 @@ const BabyInfo = () => {
 
         {/* 이름 */}
         <div className={styles.babyla}>
-          <label htmlFor="babyname">이름</label>
+          <label htmlFor="babyname">{`${data.status === "infant" ? "이름" : "태명"}`}</label>
           <input
             type="text"
             id="babyname"
             name="name"
             value={data.name || ""}
             onChange={handleChange}
-            className={`${styles.babyname} ${
-              !regex.name && inputCount.name > 0 ? styles.auth : ""
-            }`}
+            className={`${styles.babyname} ${!regex.name && inputCount.name > 0 ? styles.auth : ""
+              }`}
             readOnly={!isEditing}
             style={{
               border: isEditing ? "1px solid #696B70" : "none",
@@ -58,24 +57,23 @@ const BabyInfo = () => {
           />
         </div>
 
-        {/* 출생일 */}
+        {/* 출산예정일 */}
         <div className={styles.birthday}>
-          <label htmlFor="birthday">출생일</label>
+          <label htmlFor="birthday">{`${data.status === "infant" ? "생년월일" : "출산예정일"}`} </label>
           <input
             type="date"
             id="birthday"
-            className={`${styles.babybirthday} ${
-              !regex.birth_date && inputCount.birth_date > 0 ? styles.auth : ""
-            }`}
+            className={`${styles.babybirthday} ${!regex.birth_date && inputCount.birth_date > 0 ? styles.auth : ""
+              }`}
             value={data.birth_date || ""}
             name="birth_date"
             onChange={handleChange}
             readOnly={!isEditing}
             {
-              // 영유아
-              ...(data.status == "infant"
-                ? { min: todayString }
-                : { min: birthMinus7String })
+            // 영유아
+            ...(data.status == "infant"
+              ? { min: todayString }
+              : { min: birthMinus7String })
             }
             style={{
               border: isEditing ? "1px solid #696B70" : "none",
@@ -100,15 +98,14 @@ const BabyInfo = () => {
                 .map((gender) => (
                   <button
                     key={gender}
-                    className={`${
-                      styles[
-                        gender === "미정"
-                          ? "quest"
-                          : gender === "남자"
+                    className={`${styles[
+                      gender === "미정"
+                        ? "quest"
+                        : gender === "남자"
                           ? "manb"
                           : "girlb"
                       ]
-                    } ${selectedGender === gender ? styles.active : ""}`}
+                      } ${selectedGender === gender ? styles.active : ""}`}
                     onClick={() => {
                       setSelectedGender(gender); // 버튼 선택 상태
                       setData((prev) => ({ ...prev, gender })); // data.gender 동기화
