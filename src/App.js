@@ -60,10 +60,10 @@ function AppRoutes() {
           if (exists) return prev;
           return [processedAlert, ...prev];
         });
-        // setNewAlerts(true);
+        setNewAlerts(true);
       });
     }
-  }, []);
+  }, [isLogin]);
 
   useEffect(() => {
     if (alerts.length == 0) {
