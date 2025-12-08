@@ -1,9 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
+import { motion } from "framer-motion";
 import { ChevronDown, UploadCloud, X } from "lucide-react";
 import styles from "./BoardWrite.module.css";
 import { UseBoardWrite } from "./UseBoardWrite";
 import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
 import Loading from "common/loading/Loading";
+
+const containerVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, ease: "easeOut" },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 15 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.35, ease: "easeOut" },
+  },
+};
 
 const BoardWrite = () => {
   const {
@@ -26,13 +45,18 @@ const BoardWrite = () => {
     isOpen,
     selected,
     selectedVisibility,
-    isSubmitting
+    isSubmitting,
   } = UseBoardWrite();
 
   return (
-    <div className={styles.editorContainer}>
+    <motion.div
+      className={styles.editorContainer}
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
       {/* 제목 입력 영역 */}
-      <div className={styles.formGroup}>
+      <motion.div className={styles.formGroup} variants={itemVariants}>
         <label className={styles.formLabel}>제목</label>
         <div className={styles.inputField}>
           <input
@@ -42,10 +66,10 @@ const BoardWrite = () => {
             ref={titleRef}
           />
         </div>
-      </div>
+      </motion.div>
 
-      {/* 필터 및 공개 설정 그룹 */}
-      <div className={styles.selectionGroup}>
+      {/* 필터 + 공개 설정 */}
+      <motion.div className={styles.selectionGroup} variants={itemVariants}>
         {/* 필터 선택 */}
         <div className={styles.formGroup} style={{ position: "relative" }}>
           <label className={styles.formLabel}>필터 선택</label>
@@ -57,9 +81,13 @@ const BoardWrite = () => {
             <ChevronDown size={24} className={styles.selectIcon} />
           </div>
 
-          {/* 옵션 리스트 */}
           {isOpen && (
-            <div className={styles.dropdownOptions}>
+            <motion.div
+              className={styles.dropdownOptions}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.2 }}
+            >
               {options.map((option) => (
                 <div
                   key={option}
@@ -69,7 +97,7 @@ const BoardWrite = () => {
                   {option}
                 </div>
               ))}
-            </div>
+            </motion.div>
           )}
         </div>
 
@@ -77,11 +105,11 @@ const BoardWrite = () => {
         <div className={styles.formGroup}>
           <label className={styles.formLabel}>공개 설정</label>
           <div className={styles.radioGroup}>
-            {/* 전체 옵션 */}
             <label
               htmlFor="visibility-all"
-              className={`${styles.radioOption} ${selectedVisibility === "all" ? styles.activeRadio : ""
-                }`}
+              className={`${styles.radioOption} ${
+                selectedVisibility === "all" ? styles.activeRadio : ""
+              }`}
             >
               <input
                 type="radio"
@@ -90,16 +118,15 @@ const BoardWrite = () => {
                 value="all"
                 checked={selectedVisibility === "all"}
                 onChange={() => handleVisibilityChange("all")}
-                className={styles.hiddenRadio}
               />
               <span>전체</span>
             </label>
 
-            {/* 멤버 옵션 */}
             <label
               htmlFor="visibility-member"
-              className={`${styles.radioOption} ${selectedVisibility === "member" ? styles.activeRadio : ""
-                }`}
+              className={`${styles.radioOption} ${
+                selectedVisibility === "member" ? styles.activeRadio : ""
+              }`}
             >
               <input
                 type="radio"
@@ -108,19 +135,17 @@ const BoardWrite = () => {
                 value="member"
                 checked={selectedVisibility === "member"}
                 onChange={() => handleVisibilityChange("member")}
-                className={styles.hiddenRadio}
               />
               <span>멤버</span>
             </label>
           </div>
         </div>
-      </div>
+      </motion.div>
 
-      {/* 파일 업로드 영역 추가 */}
-      <div className={styles.fileUploadArea}>
+      {/* 파일 업로드 */}
+      <motion.div className={styles.fileUploadArea} variants={itemVariants}>
         <label className={styles.formLabel}>파일 첨부</label>
         <div className={styles.uploadContainer}>
-          {/* 실제 파일 입력 필드 */}
           <input
             type="file"
             id="file-upload"
@@ -128,15 +153,19 @@ const BoardWrite = () => {
             onChange={handleFileSelect}
             className={styles.fileInput}
           />
-          {/* 사용자에게 보이는 업로드 버튼 (label을 사용하여 input을 클릭) */}
+
           <label htmlFor="file-upload" className={styles.uploadButton}>
             <UploadCloud size={20} />
             <span>파일 선택 또는 드래그 앤 드롭 (최대 7개)</span>
           </label>
 
-          {/* 업로드된 파일 목록 */}
           {uploadedFiles.length > 0 && (
-            <div className={styles.list}>
+            <motion.div
+              className={styles.list}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.25 }}
+            >
               <ul className={styles.fileList}>
                 {uploadedFiles.map((file, index) => (
                   <li key={index} className={styles.fileItem}>
@@ -147,43 +176,48 @@ const BoardWrite = () => {
                     <button
                       onClick={() => handleFileRemove(index)}
                       className={styles.removeFileButton}
-                      aria-label={`${file.name} 파일 삭제`}
                     >
                       <X size={20} />
                     </button>
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           )}
         </div>
-      </div>
+      </motion.div>
 
-      {/* 에디터 영역 */}
-      <div className={styles.editorArea}>
+      {/* 에디터 */}
+      <motion.div className={styles.editorArea} variants={itemVariants}>
         <SimpleEditor
           ref={editorRef}
           setInEditorUploadFiles={setInEditorUploadFiles}
           setEditorInstance={setEditorInstance}
           uploadType="board"
         />
-      </div>
+      </motion.div>
 
-      {/* 액션 버튼 */}
-      <div className={styles.actionFooter}>
+      {/* 버튼 */}
+      <motion.div
+        className={styles.actionFooter}
+        variants={itemVariants}
+        style={{ display: "flex", gap: "16px" }}
+      >
         <button onClick={handleBack} className={styles.backButton}>
           뒤로가기
         </button>
-        <button onClick={handleComplete} className={styles.completeButton} disabled={isSubmitting}>
+        <button
+          onClick={handleComplete}
+          className={styles.completeButton}
+          disabled={isSubmitting}
+        >
           완료
         </button>
-      </div>
-      {
-        isSubmitting && (
-          <Loading   message="처리중 ... " />
-        )
-      }
-    </div>
+      </motion.div>
+      {isSubmitting && (
+        <Loading message="잠시만 기다려주세요. 정보를 빠르게 준비하고 있습니다." />
+      )}
+    </motion.div>
   );
 };
 

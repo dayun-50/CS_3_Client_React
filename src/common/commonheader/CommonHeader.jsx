@@ -45,7 +45,7 @@ const CommonHeader = ({
 
   return (
     <div>
-      {isNavOpen && <BabySideNavi onClose={closeSideNav} />}
+      {isNavOpen && <BabySideNavi onClose={closeSideNav} setIsNavOpen = {setIsNavOpen}/>}
 
       <div className={styles.topbar}>
         <div className={styles.headerContentWrapper}>

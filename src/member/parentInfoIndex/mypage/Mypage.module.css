@@ -3,9 +3,7 @@
    ============================== */
 .container {
   width: 100%;
-  max-width: 600px;
   height: 100%;
-  max-height: 90vh;
   background-color: #fff4d6;
   display: flex;
   justify-content: center;
@@ -39,8 +37,6 @@
   flex-direction: column;
   gap: 16px;
   overflow-y: auto;
-  padding-bottom: 16px;
-  max-height: calc(100% - 70px); /* 버튼 영역 공간 확보 */
   box-sizing: border-box;
 }
 
@@ -51,6 +47,7 @@
   font-size: 22px;
   color: #696b70;
   font-weight: bold;
+  margin: 0;
 }
 
 /* ==============================
@@ -60,7 +57,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 /* 아이디 */
@@ -69,6 +66,7 @@
   color: #696b70;
   margin-left: 10px;
   font-weight: bold;
+  margin: 0;
 }
 
 .dbid {
@@ -87,13 +85,12 @@
 .nick label {
   font-size: 18px;
   color: #696b70;
-  margin-left: 10px;
   font-weight: bold;
+  margin: 0;
 }
 
 .nick input {
-  border-radius: 20px;
-  height: 48px;
+  height: 42px;
   border: 1px solid #696b70;
   padding: 0 10px;
   outline: none;
@@ -114,14 +111,14 @@
 .email label {
   font-size: 18px;
   color: #696b70;
-  margin-left: 10px;
   font-weight: bold;
+  margin: 0;
 }
 
 .email input {
   border-radius: 20px;
-  height: 48px;
-  border: 1px solid #696b70;
+  height: 42px;
+  border: 1px solid var(--color-font-back);
   padding: 0 10px;
   outline: none;
 }
@@ -134,8 +131,8 @@
 .birthday {
   font-size: 18px;
   color: #696b70;
-  margin-left: 10px;
   font-weight: bold;
+  margin: 0;
 }
 
 .dbbirth {
@@ -151,9 +148,8 @@
   color: #696b70;
   font-size: 18px;
   display: block;
-  margin-bottom: 16px;
-  margin-left: 10px;
   font-weight: bold;
+  margin: 0;
 }
 
 .dash {
@@ -183,7 +179,7 @@
 /* 수정 모드 */
 .phoneWrapper .prefixActive {
   width: 100px !important;
-  height: 48px;
+  height: 42px;
   text-align: center;
   display: flex;
   align-items: center;
@@ -192,7 +188,6 @@
   border-radius: 20px;
   /* border: 1px solid #8c8c8c; */
 }
-
 
 /* ==============================
    input + 버튼 래퍼
@@ -208,9 +203,8 @@
 .editableInputHalf,
 .phoneWrapper input {
   width: 70%;
-  height: 48px;
+  height: 42px;
   border-radius: 20px;
-  /* border: 1px solid #696b70; */
   padding: 0 10px;
   box-sizing: border-box;
   outline: none;
@@ -221,7 +215,7 @@
 .checkButton,
 .duplicationButton {
   flex: 0 0 30%;
-  height: 48px;
+  height: 42px;
   border-radius: 20px;
   border: none;
   background-color: #b9b9b9;
@@ -249,7 +243,7 @@
 /* 이메일 인증 입력 */
 .verificationInput {
   width: 100% !important;
-  height: 48px;
+  height: 42px;
   border-radius: 20px;
   border: 1px solid #696b70;
   padding: 0 10px;
@@ -269,8 +263,8 @@
    ============================== */
 .dbPhone {
   width: 80px;
-  height: 48px;
-  line-height: 48px;
+  height: 42px;
+  line-height: 42px;
   text-align: center;
   background-color: #fff4d6;
   box-sizing: border-box;
@@ -279,13 +273,13 @@
 .phone123,
 .phone456 {
   border: 1px solid #696b70;
-  width: 60px; /* 원하는 너비 */
-  height: 48px; /* input 높이 */
+  width: 60px;
+  height: 42px;
   border-radius: 20px;
-  text-align: center !important; /* 텍스트 가운데 */
-  padding: 0; /* 필요 시 */
+  text-align: center !important;
+  padding: 0;
   box-sizing: border-box;
-  font-size: 16px; /* 글씨 크기 */
+  font-size: 16px;
 }
 /* ==============================
    가족코드
@@ -300,7 +294,7 @@
 .familycode {
   font-size: 18px;
   color: #696b70;
-  margin-left: 10px;
+  margin: 0;
   font-weight: bold;
 }
 
@@ -373,62 +367,287 @@
    반응형 (작은 화면용)
    ============================== */
 @media screen and (max-width: 374px) {
-  .container { padding: 7px; border-radius: 13px; }
-  .title { font-size: 17px; }
-  .id, .nick label, .email label, .birthday, .familycode, .phone label { font-size: 13px; }
-  .dbid, .dbbirth, .familywhy, .dbPhone { font-size: 12px; }
-  .phoneWrapper .prefix, .phoneWrapper .prefixActive { width: 33px; height: 33px; font-size: 12px; }
-  .phoneWrapper input { width: 70%; height: 33px; font-size: 12px; }
-  .editableInputHalf, .dbValue { height: 33px; font-size: 12px; padding: 0 5px; }
-  .checkButton, .duplicationButton, .delete, .success, .crbt { height: 33px; font-size: 13px; border-radius: 13px; }
-  .verificationInput { height: 33px; width: 101px; font-size: 12px; }
-  .btwo { gap: 5px; }
+  .container {
+    padding: 7px;
+    border-radius: 13px;
+  }
+  .title {
+    font-size: 17px;
+  }
+  .id,
+  .nick label,
+  .email label,
+  .birthday,
+  .familycode,
+  .phone label {
+    font-size: 13px;
+  }
+  .dbid,
+  .dbbirth,
+  .familywhy,
+  .dbPhone {
+    font-size: 12px;
+  }
+  .phoneWrapper .prefix,
+  .phoneWrapper .prefixActive {
+    width: 33px;
+    height: 33px;
+    font-size: 12px;
+  }
+  .phoneWrapper input {
+    width: 70%;
+    height: 33px;
+    font-size: 12px;
+  }
+  .editableInputHalf,
+  .dbValue {
+    height: 33px;
+    font-size: 12px;
+    padding: 0 5px;
+  }
+  .checkButton,
+  .duplicationButton,
+  .delete,
+  .success,
+  .crbt {
+    height: 33px;
+    font-size: 13px;
+    border-radius: 13px;
+  }
+  .verificationInput {
+    height: 33px;
+    width: 101px;
+    font-size: 12px;
+  }
+  .btwo {
+    gap: 5px;
+  }
 }
 @media screen and (min-width: 375px) and (max-width: 413px) {
-  .container { padding: 10px; border-radius: 14px; }
-  .title { font-size: 17px; }
-  .id, .nick label, .email label, .birthday, .familycode, .phone label { font-size: 14px; }
-  .dbid, .dbbirth, .familywhy, .dbPhone { font-size: 12px; }
-  .phoneWrapper .prefix, .phoneWrapper .prefixActive { width: 36px; height: 36px; font-size: 12px; }
-  .phoneWrapper input { width: 70%; height: 36px; font-size: 12px; }
-  .editableInputHalf, .dbValue { height: 36px; font-size: 12px; padding: 0 6px; }
-  .checkButton, .duplicationButton, .delete, .success, .crbt { height: 36px; font-size: 14px; border-radius: 14px; }
-  .verificationInput { height: 36px; width: 120px; font-size: 12px; }
-  .btwo { gap: 5px; }
+  .container {
+    padding: 10px;
+    border-radius: 14px;
+  }
+  .title {
+    font-size: 17px;
+  }
+  .id,
+  .nick label,
+  .email label,
+  .birthday,
+  .familycode,
+  .phone label {
+    font-size: 14px;
+  }
+  .dbid,
+  .dbbirth,
+  .familywhy,
+  .dbPhone {
+    font-size: 12px;
+  }
+  .phoneWrapper .prefix,
+  .phoneWrapper .prefixActive {
+    width: 36px;
+    height: 36px;
+    font-size: 12px;
+  }
+  .phoneWrapper input {
+    width: 70%;
+    height: 36px;
+    font-size: 12px;
+  }
+  .editableInputHalf,
+  .dbValue {
+    height: 36px;
+    font-size: 12px;
+    padding: 0 6px;
+  }
+  .checkButton,
+  .duplicationButton,
+  .delete,
+  .success,
+  .crbt {
+    height: 36px;
+    font-size: 14px;
+    border-radius: 14px;
+  }
+  .verificationInput {
+    height: 36px;
+    width: 120px;
+    font-size: 12px;
+  }
+  .btwo {
+    gap: 5px;
+  }
 }
 @media screen and (min-width: 414px) and (max-width: 479px) {
-  .container { padding: 11px; border-radius: 17px; }
-  .title { font-size: 19px; }
-  .id, .nick label, .email label, .birthday, .familycode, .phone label { font-size: 16px; }
-  .dbid, .dbbirth, .familywhy, .dbPhone { font-size: 14px; }
-  .phoneWrapper .prefix, .phoneWrapper .prefixActive { width: 41px; height: 41px; font-size: 14px; }
-  .phoneWrapper input { width: 70%; height: 41px; font-size: 14px; }
-  .editableInputHalf, .dbValue { height: 41px; font-size: 14px; padding: 0 7px; }
-  .checkButton, .duplicationButton, .delete, .success, .crbt { height: 41px; font-size: 16px; border-radius: 17px; }
-  .verificationInput { height: 41px; width: 141px; font-size: 14px; }
-  .btwo { gap: 7px; }
+  .container {
+    padding: 11px;
+    border-radius: 17px;
+  }
+  .title {
+    font-size: 19px;
+  }
+  .id,
+  .nick label,
+  .email label,
+  .birthday,
+  .familycode,
+  .phone label {
+    font-size: 16px;
+  }
+  .dbid,
+  .dbbirth,
+  .familywhy,
+  .dbPhone {
+    font-size: 14px;
+  }
+  .phoneWrapper .prefix,
+  .phoneWrapper .prefixActive {
+    width: 41px;
+    height: 41px;
+    font-size: 14px;
+  }
+  .phoneWrapper input {
+    width: 70%;
+    height: 41px;
+    font-size: 14px;
+  }
+  .editableInputHalf,
+  .dbValue {
+    height: 41px;
+    font-size: 14px;
+    padding: 0 7px;
+  }
+  .checkButton,
+  .duplicationButton,
+  .delete,
+  .success,
+  .crbt {
+    height: 41px;
+    font-size: 16px;
+    border-radius: 17px;
+  }
+  .verificationInput {
+    height: 41px;
+    width: 141px;
+    font-size: 14px;
+  }
+  .btwo {
+    gap: 7px;
+  }
 }
 @media screen and (min-width: 480px) and (max-width: 767px) {
-  .container { padding: 12px; border-radius: 18px; }
-  .title { font-size: 19px; }
-  .id, .nick label, .email label, .birthday, .familycode, .phone label { font-size: 16px; }
-  .dbid, .dbbirth, .familywhy, .dbPhone { font-size: 14px; }
-  .phoneWrapper .prefix, .phoneWrapper .prefixActive { width: 45px; height: 45px; font-size: 14px; }
-  .phoneWrapper input { width: 70%; height: 45px; font-size: 14px; }
-  .editableInputHalf, .dbValue { height: 45px; font-size: 14px; padding: 0 8px; }
-  .checkButton, .duplicationButton, .delete, .success, .crbt { height: 45px; font-size: 16px; border-radius: 18px; }
-  .verificationInput { height: 45px; width: 150px; font-size: 14px; }
-  .btwo { gap: 7px; }
+  .container {
+    padding: 12px;
+    border-radius: 18px;
+  }
+  .title {
+    font-size: 19px;
+  }
+  .id,
+  .nick label,
+  .email label,
+  .birthday,
+  .familycode,
+  .phone label {
+    font-size: 16px;
+  }
+  .dbid,
+  .dbbirth,
+  .familywhy,
+  .dbPhone {
+    font-size: 14px;
+  }
+  .phoneWrapper .prefix,
+  .phoneWrapper .prefixActive {
+    width: 45px;
+    height: 45px;
+    font-size: 14px;
+  }
+  .phoneWrapper input {
+    width: 70%;
+    height: 45px;
+    font-size: 14px;
+  }
+  .editableInputHalf,
+  .dbValue {
+    height: 45px;
+    font-size: 14px;
+    padding: 0 8px;
+  }
+  .checkButton,
+  .duplicationButton,
+  .delete,
+  .success,
+  .crbt {
+    height: 45px;
+    font-size: 16px;
+    border-radius: 18px;
+  }
+  .verificationInput {
+    height: 45px;
+    width: 150px;
+    font-size: 14px;
+  }
+  .btwo {
+    gap: 7px;
+  }
 }
 @media screen and (min-width: 768px) {
-  .container { padding: 20px; border-radius: 22px; }
-  .title { font-size: 22px; }
-  .id, .nick label, .email label, .birthday, .familycode, .phone label { font-size: 18px; }
-  .dbid, .dbbirth, .familywhy, .dbPhone { font-size: 16px; }
-  .phoneWrapper .prefix, .phoneWrapper .prefixActive { width: 50px; height: 48px; font-size: 16px; }
-  .phoneWrapper input { width: 70%; height: 48px; font-size: 16px; }
-  .editableInputHalf, .dbValue { height: 48px; font-size: 16px; padding: 0 10px; }
-  .checkButton, .duplicationButton, .delete, .success, .crbt { height: 48px; font-size: 18px; border-radius: 20px; }
-  .verificationInput { height: 48px; width: 200px; font-size: 16px; }
-  .btwo { gap: 10px; }
+  .container {
+    padding: 20px;
+    border-radius: 22px;
+  }
+  .title {
+    font-size: 22px;
+  }
+  .id,
+  .nick label,
+  .email label,
+  .birthday,
+  .familycode,
+  .phone label {
+    font-size: 18px;
+  }
+  .dbid,
+  .dbbirth,
+  .familywhy,
+  .dbPhone {
+    font-size: 16px;
+  }
+  .phoneWrapper .prefix,
+  .phoneWrapper .prefixActive {
+    width: 50px;
+    height: 42px;
+    font-size: 16px;
+  }
+  .phoneWrapper input {
+    width: 70%;
+    height: 42px;
+    font-size: 16px;
+  }
+  .editableInputHalf,
+  .dbValue {
+    height: 42px;
+    font-size: 16px;
+    padding: 0 10px;
+  }
+  .checkButton,
+  .duplicationButton,
+  .delete,
+  .success,
+  .crbt {
+    height: 48px;
+    font-size: 18px;
+    border-radius: 20px;
+  }
+  .verificationInput {
+    height: 42px;
+    width: 200px;
+    font-size: 16px;
+  }
+  .btwo {
+    gap: 10px;
+  }
 }

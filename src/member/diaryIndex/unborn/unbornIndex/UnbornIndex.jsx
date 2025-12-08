@@ -1,10 +1,24 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import DiaryNavi from "../diaryNavi/DiaryNavi";
 import DiaryDetail from "../diaryDetail/DiaryDetail";
 import DiaryWrite from "../diaryWrite/DiaryWrite";
 import styles from "./UnbornIndex.module.css";
 import { UseUnBornDiaryIndex } from "./UseUnbornIndex";
+
+// 모션
+const pageVariants = {
+  initial: { opacity: 0, x: 50 },
+  in: { opacity: 1, x: 0 },
+  out: { opacity: 0, x: -50 },
+};
+
+const pageTransition = {
+  type: "tween",
+  ease: "anticipate",
+  duration: 0.4,
+};
 
 //산모수첩 인덱스 "/diary/" 여기까지 라우팅
 const UnBornDiaryIndex = () => {
@@ -18,10 +32,11 @@ const UnBornDiaryIndex = () => {
     handleAddDiary,
   } = UseUnBornDiaryIndex();
 
+  const location = useLocation();
+
   return (
     <div className={styles.container}>
       <div className={styles.left}>
-        {/*산모수첩 좌측 주차별네비바*/}
         <DiaryNavi
           selectedWeek={selectedWeek}
           setSelectedWeek={setSelectedWeek}
@@ -34,33 +49,50 @@ const UnBornDiaryIndex = () => {
       </div>
 
       <div className={styles.rigth}>
-        {/*산모수첩 디테일 or 작성 페이지 라우팅*/}
-        <Routes>
-          <Route
-            path=""
-            element={
-              <DiaryDetail
-                selectedWeek={selectedWeek}
-                setSelectedWeek={setSelectedWeek}
-                handleAddDiary={handleAddDiary}
-                setSelectedDiaryId={setSelectedDiaryId}
-                getTargetWeekDiary={getTargetWeekDiary}
-              />
-            }
-          />{" "}
-          {/*디테일 다이어리*/}
-          <Route
-            path="write"
-            element={
-              <DiaryWrite
-                getTargetWeekDiary={getTargetWeekDiary}
-                setSelectedDiaryId={setSelectedDiaryId}
-                selectedDiaryId={selectedDiaryId}
-              />
-            }
-          />{" "}
-          {/*다이어리 작성*/}
-        </Routes>
+        {/* AnimatePresence: route change 시 exit + enter animation */}
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route
+              path=""
+              element={
+                <motion.div
+                  initial="initial"
+                  animate="in"
+                  exit="out"
+                  variants={pageVariants}
+                  transition={pageTransition}
+                >
+                  <DiaryDetail
+                    selectedWeek={selectedWeek}
+                    setSelectedWeek={setSelectedWeek}
+                    handleAddDiary={handleAddDiary}
+                    setSelectedDiaryId={setSelectedDiaryId}
+                    getTargetWeekDiary={getTargetWeekDiary}
+                  />
+                </motion.div>
+              }
+            />
+
+            <Route
+              path="write"
+              element={
+                <motion.div
+                  initial="initial"
+                  animate="in"
+                  exit="out"
+                  variants={pageVariants}
+                  transition={pageTransition}
+                >
+                  <DiaryWrite
+                    getTargetWeekDiary={getTargetWeekDiary}
+                    setSelectedDiaryId={setSelectedDiaryId}
+                    selectedDiaryId={selectedDiaryId}
+                  />
+                </motion.div>
+              }
+            />
+          </Routes>
+        </AnimatePresence>
       </div>
     </div>
   );

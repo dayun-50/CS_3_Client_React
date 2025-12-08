@@ -151,34 +151,49 @@
   transition: all 0.2s;
 }
 
+/* hover */
 .radioOption:hover {
   border-color: var(--color-primary);
 }
 
-/* 숨겨진 radio input */
-.hiddenRadio {
-  border-color: var(--color-primary);
-  background-color: var(--color-sud-color1);
-  box-shadow: 0 0 8px rgba(240, 216, 39, 0.4);
+/* 라디오 버튼 (보이게 유지) */
+.radioOption input[type="radio"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--color-font-color2);
+  border-radius: 50%;
+  background-color: white;
+  cursor: pointer;
+  position: relative;
+  transition: 0.2s;
 }
 
-/* 선택된 상태 */
+.radioOption input[type="radio"]:checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.radioOption input[type="radio"]:checked::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* active 상태 */
 .radioOption.activeRadio {
   border-color: var(--color-primary);
   background-color: var(--color-white);
   box-shadow: 0 0 8px rgba(240, 216, 39, 0.4);
 }
 
-/* 선택된 텍스트 */
-.radioOption.activeRadio span {
-  color: var(--color-primary);
-  font-weight: bold;
-}
-
-.radioOption.activeRadio .radioIcon {
-  color: var(--color-font-color1);
-}
-
+/* active 때 텍스트 */
 .radioOption.activeRadio span {
   color: var(--color-primary);
   font-weight: bold;
@@ -351,7 +366,7 @@
 .backButton,
 .completeButton {
   height: 48px;
-  width: 140px;
+  width: 200px;
   border-radius: 24px;
   border: none;
   cursor: pointer;
@@ -365,7 +380,7 @@
 
 .backButton {
   background-color: var(--color-font-back);
-  color: var(--color-font-color1);
+  color: var(--color-white);
 }
 
 .backButton:hover {
@@ -377,7 +392,7 @@
 /*------- 완료버튼 -------*/
 .completeButton {
   background-color: var(--color-primary);
-  color: var(--color-font-color1);
+  color: var(--color-white);
   position: relative;
 }
 
@@ -398,11 +413,11 @@
 }
 
 /* -------------------------------------- */
-/*               반응형 430px 이하         */
+/*               반응형         */
 /* -------------------------------------- */
-
 @media (max-width: 430px) {
   .editorContainer {
+    padding: 20px 0;
     padding: 12px;
     gap: 16px;
   }

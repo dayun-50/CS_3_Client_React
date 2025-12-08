@@ -37,7 +37,6 @@
   background-color: var(--color-back-hover);
   transform: scale(0.98);
   font-weight: bold;
-  /* 약간 축소 효과 */
 }
 
 .backButtonText:active {

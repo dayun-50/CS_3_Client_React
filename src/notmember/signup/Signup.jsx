@@ -73,7 +73,7 @@ function Signup() {
                             <input
                                 id="id"
                                 type="text"
-                                placeholder="아이디"
+                                placeholder="소문자 + 숫자 5글자 이상"
                                 name="id"
                                 value={data.id}
                                 className={`${styles.inputError} ${!regexAuth.id && inputCount.id > 0 ? styles.borderRegex : ""}`}
@@ -91,7 +91,7 @@ function Signup() {
                             <input
                                 id="nickname"
                                 type="text"
-                                placeholder="닉네임"
+                                placeholder="한글 2글자 이상"
                                 name="nickname"
                                 value={data.nickname}
                                 className={`${styles.inputError} ${!regexAuth.nickname && inputCount.nickname > 0 ? styles.borderRegex : ""}`}
@@ -108,7 +108,7 @@ function Signup() {
                         <input
                             id="pw"
                             type="password"
-                            placeholder="비밀번호"
+                            placeholder="최소 6글자 이상"
                             name="pw"
                             value={data.pw}
                             className={`${styles.inputError} ${!regexAuth.pw && inputCount.pw > 0 ? styles.borderRegex : ""}`}
@@ -167,7 +167,7 @@ function Signup() {
                                 type="text"
                                 name="code"
                                 value={data.code}
-                                placeholder="가족코드"
+                                placeholder="존재하지 않을실 경우 밑에 체크란 클릭"
                                 maxLength={5}
                                 className={`${styles.inputError} ${!regexAuth.code && inputCount.code > 0 ? styles.borderRegex : ""} ${isNoCode ? styles.noCode : ""}`}
                                 onChange={hendleChange}

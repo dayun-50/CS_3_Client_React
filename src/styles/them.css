@@ -18,11 +18,11 @@
   --color-main-hover: #94a4d6;
 
   --color-white: #ffffff;
+  --modal-overlay: rgba(140, 140, 140, 0.5);
 
   --font-size-base: 16px;
   --border-radius-main: 22px;
   --border-radius-body: 16px;
-  transform: scale(0.98);
 }
 
 /* => 스타일 예시 이렇게 작성

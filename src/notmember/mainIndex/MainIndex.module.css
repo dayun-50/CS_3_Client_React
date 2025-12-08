@@ -3,44 +3,65 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100vh; /* 전체 화면 */
-  overflow-x: hidden;
-  overflow-y: visible;
-
+  height: 100vh;
   font-family: var(--font-family);
 }
 
 /* 상단 네비 영역 */
-.MemberHeader {
-  flex: 0 0 auto;
+.MemberHeaderFixed {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-
   z-index: 9999;
+  background-color: var(--color-white);
+}
+
+.MemberHeaderNormal {
+  position: relative;
+  width: 100%;
+  z-index: 9999;
+}
+
+.layoutMain,
+.layoutMainYellow {
+  flex: 1;
+  height: 100%;
+  padding: 20px 118px;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
 /* 메인 내용 */
 .layoutMain {
-  flex: 1;
   height: calc(100vh - 98px);
-  overflow: hidden;
-  padding: 20px 118px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-
   background-color: var(--color-white);
+
+  /* 스크롤 숨기기 */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.layoutMain::-webkit-scrollbar {
+  display: none;
 }
 
 .layoutMainYellow {
-  flex: 1;
   height: calc(100vh - 98px);
-  padding: 20px 118px;
-  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-
   background-color: var(--color-sud-color1) !important;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.layoutMainYellow::-webkit-scrollbar {
+  display: none;
 }
 
 /* 반응형 */

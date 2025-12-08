@@ -9,6 +9,32 @@
   color: var(--color-font-color1);
   font-family: var(--font-family);
   overflow-y: auto;
+
+  /* 스크롤바 */
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary) transparent;
+}
+
+/* 스크롤바 css 적용 */
+.container::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* 3. 스크롤바 트랙(배경) */
+.container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* 4. 스크롤바 핸들(움직이는 막대) */
+.container::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary);
+  border-radius: 4px;
+  border: 2px solid var(--color-white);
+}
+
+/* 5. 핸들에 마우스를 올렸을 때 색상 변경 */
+.container::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-hover);
 }
 
 .lineContainer {
@@ -146,9 +172,9 @@
   gap: 10px;
 }
 
+/* 예약 버튼 */
 .checkPending,
 .checkDone {
-  all: unset;
   border-radius: 50%;
   cursor: pointer;
   flex-shrink: 0;
@@ -161,12 +187,13 @@
   border: 1px solid var(--color-font-color2);
 }
 .checkPending:hover {
-  border: 6px solid var(--color-main);
+  background-color: var(--color-main);
+  border: none;
 }
 
 .checkDone {
-  background-color: var(--color-main);
-  border: none;
+  background-color: var(--color-white);
+  border: 6px solid var(--color-main);
 }
 
 .checkContent {
@@ -195,7 +222,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(140, 140, 140, 0.5);
+  background-color: var(--modal-overlay);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -297,27 +324,35 @@
   gap: 25px;
 }
 
-
 .backBtn,
 .submitBtn {
   flex: 1;
   height: 48px;
   border-radius: var(--border-radius-main);
+  color: var(--color-white);
+  font-size: 16px;
   border: none;
   cursor: pointer;
 }
 
-
 .backBtn {
   background-color: var(--color-font-back);
-  color: #fff;
-  font-size: 16px;
 }
 
 .submitBtn {
   background-color: var(--color-primary);
-  color: #fff;
-  font-size: 18px;
+}
+
+.backBtn:hover {
+  background-color: var(--color-back-hover);
+  transform: scale(0.98);
+  font-weight: bold;
+}
+
+.submitBtn:hover {
+  background-color: var(--color-hover);
+  transform: scale(0.98);
+  font-weight: bold;
 }
 
 /* ========================= */

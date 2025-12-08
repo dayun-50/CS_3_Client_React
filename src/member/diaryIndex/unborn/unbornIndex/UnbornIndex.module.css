@@ -15,60 +15,106 @@
 
   /* 1. 스크롤바의 전체 영역 */
   &::-webkit-scrollbar {
-    width: 8px; /* 스크롤바 너비 */
+    width: 8px;
   }
 
   /* 2. 스크롤바 트랙(배경) */
   &::-webkit-scrollbar-track {
-    background: transparent; /* 트랙 배경을 투명하게 설정 */
+    background: transparent;
   }
 
   /* 3. 스크롤바 핸들(움직이는 막대) */
   &::-webkit-scrollbar-thumb {
-    background-color: #f0d827; /* 노란색 계열로 설정 */
-    border-radius: 4px; /* 핸들을 둥글게 만듭니다. */
-    border: 2px solid #fff; /* 배경과 핸들을 분리하기 위한 테두리 (필요하다면 배경색에 맞게 조정) */
+    background-color: var(--color-primary);
+    border-radius: 4px;
+    border: 2px solid var(--color-white);
   }
 
-  /* 4. 핸들에 마우스를 올렸을 때 색상 변경 (선택 사항) */
+  /* 4. 핸들에 마우스를 올렸을 때 색상 변경 */
   &::-webkit-scrollbar-thumb:hover {
-    background-color: #e0c817; /* 마우스 오버 시 약간 어둡게 */
+    background-color: var(--color-hover);
   }
 
-  /* Firefox용 설정 (선택 사항, 필요시 추가) */
+  /* 선택 사항, 필요시 추가 */
   scrollbar-width: thin;
-  scrollbar-color: #f0d827 transparent;
+  scrollbar-color: var(--color-primary) transparent;
 }
-
-/* 일반적인 스크롤 디자인
-.left {
-  flex: 1;
-  border-radius: 12px;
-  padding: 15px;
-  overflow-y: auto;
-}
-
-.left::-webkit-scrollbar {
-  width: 8px;
-}
-
-.left::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.left::-webkit-scrollbar-thumb {
-  background-color: #f0d827;
-  border-radius: 4px;
-  border: 2px solid #fff;
-}
-
-.left::-webkit-scrollbar-thumb:hover {
-  background-color: #e0c817;
-} */
 
 .rigth {
   flex: 3;
-  border: 1px solid #f0d827;
+  border: 1px solid var(--color-primary);
   border-radius: 22px;
   padding: 20px;
+}
+
+/* ======================================= */
+/*                1440px 이하             */
+/* ======================================= */
+@media (max-width: 1440px) {
+  .container {
+    gap: 16px;
+    padding: 20px 0;
+    overflow-y: auto;
+  }
+
+  .rigth {
+    padding: 18px;
+  }
+}
+
+/* ======================================= */
+/*          1024px ~ 769px (태블릿)       */
+/* ======================================= */
+@media (max-width: 1024px) {
+  .container {
+    gap: 14px;
+  }
+
+  .left {
+    flex: 1;
+  }
+
+  .rigth {
+    flex: 2;
+    padding: 16px;
+  }
+}
+
+/* ======================================= */
+/*          768px ~ 481px (모바일 상단)    */
+/* ======================================= */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    gap: 16px;
+    height: auto;
+  }
+
+  .left {
+    width: 100%;
+    max-height: 400px;
+  }
+
+  .rigth {
+    width: 100%;
+    padding: 16px;
+  }
+}
+
+/* ======================================= */
+/*             480px 이하 (모바일)         */
+/* ======================================= */
+@media (max-width: 480px) {
+  .container {
+    gap: 12px;
+  }
+
+  .left {
+    max-height: 300px;
+  }
+
+  .rigth {
+    padding: 14px;
+    border-radius: 16px;
+  }
 }

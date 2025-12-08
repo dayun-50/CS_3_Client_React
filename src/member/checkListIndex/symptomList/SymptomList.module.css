@@ -5,8 +5,34 @@
   position: relative;
   font-size: 16px;
   font-family: Inter, sans-serif;
-  color: #333;
+  color: var(--color-font-color1);
   overflow-y: auto;
+
+  /* 스크롤바 */
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary) transparent;
+}
+
+/* 스크롤바 css 적용 */
+.main::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* 3. 스크롤바 트랙(배경) */
+.main::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* 4. 스크롤바 핸들(움직이는 막대) */
+.main::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary);
+  border-radius: 4px;
+  border: 2px solid var(--color-white);
+}
+
+/* 5. 핸들에 마우스를 올렸을 때 색상 변경 */
+.main::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-hover);
 }
 
 /* 왼쪽 타임라인 */
@@ -24,7 +50,7 @@
   left: -1px;
   width: 0;
   height: 100%;
-  border-right: 2px solid #fff4d6;
+  border-right: 2px solid var(--color-sud-color1);
 }
 
 /* 섹션 리스트 */
@@ -44,8 +70,6 @@
   gap: 5px;
   padding: 20px 10px;
   border-radius: 22px;
-  /* background-color: rgba(255, 244, 214, 0.44);
-  border: 1px solid #f0d827; */
   box-sizing: border-box;
 }
 
@@ -58,7 +82,7 @@
 .itemActive {
   width: 24px;
   height: 24px;
-  background-color: #f0d827;
+  background-color: var(--color-primary);
   border-radius: 50%;
   margin-top: 5px;
 }
@@ -78,11 +102,11 @@
   align-items: center;
   padding: 8px 10px;
   border-radius: 30px;
-  background-color: #f0d827;
+  background-color: var(--color-primary);
 }
 
 .weekTitle {
-  color: #fff;
+  color: var(--color-white);
   font-weight: bold;
 }
 
@@ -116,12 +140,12 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: #adb9e3;
+  background-color: var(--color-main);
   border: none;
 }
 
 /* 텍스트 */
 .checkTitle {
-  color: #696b70;
-  font-weight: 600;
+  color: var(--color-font-color1);
+  font-weight: bold;
 }

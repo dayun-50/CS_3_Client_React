@@ -1,12 +1,11 @@
 .container {
   width: 100%;
   height: 100%;
-  /* background-color: #fff4d6; */
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  font-family: "Pretendard", sans-serif;
-  color: #333;
+  gap: 20px;
+  font-family: var(--font-family);
+  color: var(--color-font-color1);
 }
 
 /* 제목 입력 */
@@ -19,14 +18,14 @@
 .formLabel {
   font-size: 18px;
   font-weight: bold;
-  color: #555;
+  color: var(--color-font-color1);
   min-width: 80px;
 }
 
 .inputField {
   flex: 1;
-  background: white;
-  border: 1px solid #ddd;
+  background: var(--color-white);
+  border: 1px solid var(--color-font-color2);
   border-radius: 12px;
   height: 52px;
   display: flex;
@@ -35,7 +34,7 @@
   transition: 0.2s;
 }
 .inputField:focus-within {
-  border-color: #f0d827;
+  border-color: var(--color-primary);
   box-shadow: 0 0 5px rgba(240, 216, 39, 0.4);
 }
 
@@ -50,44 +49,13 @@
 /* 에디터 영역 */
 .editorArea {
   flex-grow: 1;
-  background-color: #fff;
-  border: 1px solid #ddd;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-font-color2);
   border-radius: 12px;
   display: flex;
   flex-direction: column;
   min-height: 300px;
   overflow: hidden;
-}
-
-.editorHeader {
-  height: 54px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #fcfcfc;
-  border-bottom: 1px solid #eee;
-}
-
-.editorLabel {
-  font-size: 16px;
-  font-weight: 600;
-  color: #777;
-}
-
-.editorInput {
-  flex-grow: 1;
-  padding: 20px;
-  border: none;
-  outline: none;
-  resize: none;
-  font-size: 16px;
-  line-height: 1.8;
-  background: none;
-  overflow-y: auto;
-}
-
-.editorInput::placeholder {
-  color: #bbb;
 }
 
 /* 버튼 영역 */
@@ -104,24 +72,93 @@
   border-radius: 24px;
   border: none;
   font-size: 16px;
-  font-weight: 700;
   cursor: pointer;
   transition: 0.2s;
 }
 
 .backButton {
-  background: #ccc;
-  color: #444;
+  background: var(--color-font-back);
+  color: var(--color-white);
 }
 .backButton:hover {
-  background: #bbb;
+  background: var(--color-back-hover);
+  font-weight: bold;
+  transform: scale(0.98);
 }
 
 .completeButton {
-  background-color: #f0d827;
-  color: #333;
+  background-color: var(--color-primary);
+  color: var(--color-white);
 }
 .completeButton:hover {
-  background-color: #e0c817;
-  box-shadow: 0 6px 10px rgba(240, 216, 39, 0.5);
+  background-color: var(--color-hover);
+  font-weight: bold;
+  transform: scale(0.98);
+}
+
+/* ======================================= */
+/*          768px 이하 (태블릿)            */
+/* ======================================= */
+@media (max-width: 768px) {
+  .detailContainer {
+    padding: 12px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .writer {
+    font-size: 13px;
+  }
+
+  .contentBox {
+    font-size: 15px;
+  }
+
+  .actionButtons {
+    gap: 10px;
+  }
+
+  .editButton,
+  .deleteButton {
+    width: 150px;
+    height: 44px;
+    font-size: 15px;
+  }
+}
+
+/* ======================================= */
+/*             480px 이하 (모바일)         */
+/* ======================================= */
+@media (max-width: 480px) {
+  .detailContainer {
+    padding: 10px;
+    gap: 14px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .writer {
+    font-size: 12px;
+  }
+
+  .contentBox {
+    font-size: 14px;
+  }
+
+  .actionButtons {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .editButton,
+  .deleteButton {
+    width: 100%;
+    height: 44px;
+    font-size: 15px;
+  }
 }

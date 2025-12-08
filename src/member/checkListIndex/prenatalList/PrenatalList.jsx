@@ -8,11 +8,16 @@ import UsePrenatalList from "./UsePrenatalList";
 const CheckItem = ({ check, onToggle }) => {
   // 완료 상태에 따라 다른 CSS 클래스 적용
   const checkCircleClass = check.isDone
-    ? styles.checkDone // 완료된 상태 (색상 채워짐)
-    : styles.checkPending; // 미완료 상태 (테두리만 있음)
+    ? styles.checkDone
+    : styles.checkPending;
 
   return (
-    <div className={styles.checkItem}>
+    <motion.div
+      className={styles.checkItem}
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.4 }}
+    >
       <div className={styles.checkRow}>
         <button className={checkCircleClass} onClick={() => onToggle(check)} />
         <div className={styles.checkContent}>
@@ -23,7 +28,7 @@ const CheckItem = ({ check, onToggle }) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

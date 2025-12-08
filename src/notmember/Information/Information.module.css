@@ -1,0 +1,186 @@
+.container {
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+  font-family: var(--font-family);
+
+  /* 스크롤 숨기기 */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
+}
+
+/* 스크롤 진행 바 */
+.scrollProgress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 4px;
+  background: linear-gradient(180deg, #f0d827, #ff9c00);
+  z-index: 10000;
+  transition: height 0.1s linear;
+}
+
+/* FADE-IN (dotNav 전체 등장) */
+.fadeIn {
+  opacity: 0;
+  animation: fadeNav 1.1s ease forwards;
+}
+@keyframes fadeNav {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Dot Navigation */
+.dotNav {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 9999;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ccc;
+  margin: 8px 0;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.dot:hover {
+  transform: scale(1.3);
+  background: linear-gradient(45deg, #f0d827, #ff9c00);
+}
+
+.activeDot {
+  background: linear-gradient(45deg, #f0d827, #ff9c00);
+  box-shadow: 0 0 8px rgba(240, 216, 39, 0.6);
+  transform: scale(1.3);
+}
+
+.dotIndicator {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #f0d827;
+  position: absolute;
+  left: -1px;
+  transition: transform 0.3s ease;
+  pointer-events: none;
+}
+
+/* mobile version → 왼쪽으로 이동 */
+@media (max-width: 768px) {
+  .dotNav {
+    right: auto;
+    left: 16px;
+  }
+}
+
+/* Sections */
+.section {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  width: 100%;
+  align-items: center;
+  gap: 20px;
+}
+
+.left {
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.right {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.sectionIcon {
+  margin-bottom: 12px;
+}
+
+.textBlock {
+  max-width: 600px;
+  text-align: center;
+}
+
+.left .textBlock,
+.right .textBlock {
+  text-align: left;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.imagePlaceholder {
+  width: 400px;
+  height: 300px;
+  border-radius: 20px;
+  background: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+/* Gradient 연결 라인 */
+.gradientLine {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  width: 4px;
+  height: 60px;
+  background: linear-gradient(
+    to bottom,
+    rgba(240, 216, 39, 0.8),
+    rgba(240, 216, 39, 0)
+  );
+  transform: translateX(-50%);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .left,
+  .right {
+    flex-direction: column;
+  }
+
+  .textBlock {
+    text-align: center !important;
+  }
+
+  .imagePlaceholder {
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+  }
+}

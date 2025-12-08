@@ -1,13 +1,18 @@
 import React from "react";
 import styles from "./DiaryDetail.module.css";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { CalendarDays } from "lucide-react";
 import { UseDiaryDetail } from "./UseDiaryDetail";
 import { EditorContent } from "@tiptap/react";
 
-
 // 산모수첩 상세 보기
-const DiaryDetail = ({ selectedWeek, handleAddDiary, setSelectedDiaryId, getTargetWeekDiary, setSelectedWeek }) => {
-
+const DiaryDetail = ({
+  selectedWeek,
+  handleAddDiary,
+  setSelectedDiaryId,
+  getTargetWeekDiary,
+  setSelectedWeek,
+}) => {
   const {
     seq,
     navigate,
@@ -15,19 +20,24 @@ const DiaryDetail = ({ selectedWeek, handleAddDiary, setSelectedDiaryId, getTarg
     editor,
     id,
     handleDeleteDiary,
-    handleUpdateDiary
-  } = UseDiaryDetail({ selectedWeek, setSelectedDiaryId, getTargetWeekDiary, setSelectedWeek });
-
-
-
-
+    handleUpdateDiary,
+  } = UseDiaryDetail({
+    selectedWeek,
+    setSelectedDiaryId,
+    getTargetWeekDiary,
+    setSelectedWeek,
+  });
 
   /* 선택된 주차도 없고 시퀀스도 없을 때 */
   if (!selectedWeek && !seq) {
     return (
       <div className={styles.emptyStateContainer}>
+        <CalendarDays size={50} className={styles.emptyIcon} />
         <div className={styles.emptyStateMessage}>
-          일기를 선택 또는 작성해주세요
+          작성한 내용이 존재하지 않습니다
+          <p className={styles.emptySubText}>
+            주차를 선택해 작성을 시작해 보세요
+          </p>
         </div>
       </div>
     );
@@ -38,11 +48,16 @@ const DiaryDetail = ({ selectedWeek, handleAddDiary, setSelectedDiaryId, getTarg
     return (
       <div className={styles.emptyStateContainer}>
         <div className={styles.emptyStateMessage}>
-          '{selectedWeek} 주차'의 일기를 선택또는 작성해주세요
+          '{selectedWeek} 주차'의 일기를 선택 또는 작성해주세요
         </div>
-        <div onClick={(e) => { handleAddDiary(e, selectedWeek) }} className={styles.writeLink}>
+        <button
+          onClick={(e) => {
+            handleAddDiary(e, selectedWeek);
+          }}
+          className={styles.writeLink}
+        >
           새 기록 남기기
-        </div>
+        </button>
       </div>
     );
   }
@@ -55,32 +70,40 @@ const DiaryDetail = ({ selectedWeek, handleAddDiary, setSelectedDiaryId, getTarg
         <h2 className={styles.title}>
           [{selectedWeek}주차] {targetDiaryContent.title}
         </h2>
-        <span className={styles.writer}>작성자: {targetDiaryContent.nickname}</span>
+        <span className={styles.writer}>
+          작성자: {targetDiaryContent.nickname}
+        </span>
       </div>
 
       {/* 내용 */}
-      <div className={styles.contentBox} >
+      <div className={styles.contentBox}>
         {editor && <EditorContent editor={editor} />}
       </div>
 
-
       {/* 수정/삭제 버튼 */}
       <div className={styles.actionButtons}>
-        {id == targetDiaryContent.user_id && //자기가 써야지만 볼 수 있음
-          (<>
+        {id == targetDiaryContent.user_id && ( //자기가 써야지만 볼 수 있음
+          <>
             <button
               className={styles.deleteButton}
-              onClick={() => handleDeleteDiary(targetDiaryContent.journal_seq)}>
+              onClick={() => handleDeleteDiary(targetDiaryContent.journal_seq)}
+            >
               삭제
             </button>
-            <button className={styles.editButton}
-              onClick={() => { console.log(targetDiaryContent.journal_seq, "타겟저널시퀀스넘어가나 확인"); handleUpdateDiary(targetDiaryContent.journal_seq, selectedWeek) }}>
+            <button
+              className={styles.editButton}
+              onClick={() => {
+                console.log(
+                  targetDiaryContent.journal_seq,
+                  "타겟저널시퀀스넘어가나 확인"
+                );
+                handleUpdateDiary(targetDiaryContent.journal_seq, selectedWeek);
+              }}
+            >
               수정
             </button>
           </>
-          )}
-
-
+        )}
       </div>
     </div>
   );

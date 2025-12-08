@@ -1,26 +1,31 @@
 import styles from "./BabyInfoPic.module.css";
-import backImg from "./img/back.png";
-import jionebabyImg from "./img/jionebaby.png";
-import childrenImg from "./img/children.png";
+import backImg from "./img/back.svg";
+import backImg2 from "./img/back2.svg";
+import jionebabyImg from "./img/jionebaby.svg";
+import childrenImg from "./img/children.svg";
 import useAuthStore from "store/useStore";
 
 const BabyInfoPic = () => {
-
   const today = new Date().toISOString().split("T")[0];
-  const babyDueDate = useAuthStore(state => state.babyDueDate);
-  const type = today > babyDueDate ? "child" : "mom";
-  
+  const babyDueDate = useAuthStore((state) => state.babyDueDate);
+  const type = today >= babyDueDate ? "child" : "mom";
+
+  /* 타입별 이미지 묶음 세트 */
+  const backgroundImage = type === "mom" ? backImg : backImg2;
+  const frontImage = type === "mom" ? jionebabyImg : childrenImg;
+
+  const imageClasses = `
+  ${styles.jionewbabyImage}
+  ${type === "child" ? styles.childrenImage : ""}
+`;
+
   return (
     <div className={styles.leftcontainer}>
       {/* 배경 이미지 */}
-      <img src={backImg} alt="back" className={styles.backImage} />
+      <img src={backgroundImage} alt="bg" className={styles.backImage} />
 
-      {/* 아기 이미지 */}
-      <img
-        src={type === "mom" ? jionebabyImg : childrenImg}
-        alt="baby"
-        className={styles.jionewbabyImage}
-      />
+      {/* 앞 이미지 */}
+      <img src={frontImage} alt="baby" className={imageClasses} />
     </div>
   );
 };

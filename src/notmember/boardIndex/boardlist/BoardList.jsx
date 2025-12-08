@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import {
   MoreHorizontal,
   Eye,
@@ -17,6 +18,28 @@ import { UseBoardList } from "./UseBoardList";
 import PageNaviBar from "../../../common/pageNavi/PageNavi";
 import BoardOver from "../boardOver/BoardOver";
 import useAuthStore from "store/useStore";
+
+// 모션
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05, // 항목당 0.05초 간격
+    },
+  },
+};
+
+// --- Card Item variants ---
+// 개별 카드의 등장 애니메이션 설정
+const itemVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 100, damping: 15 },
+  },
+};
 
 const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
   const {
@@ -116,12 +139,20 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
             <p className={styles.emptySubText}>첫 게시글을 작성해보세요</p>
           </div>
         ) : (
-          <ul className={styles.gridContainer}>
+          <motion.ul // 2. 그리드 컨테이너에 motion 적용
+            className={styles.gridContainer}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
             {mergedList.map((item) => (
-              <li
+              <motion.li // 개별 카드에 motion.li 적용
                 key={item.board.board_seq}
                 className={styles.card}
                 onClick={() => handleCardClick(item.board.board_seq)}
+                variants={itemVariants}
+                whileHover={{ y: -5, boxShadow: "0 10px 20px rgba(0,0,0,0.1)" }} // 호버 시 살짝 떠오름
+                transition={{ duration: 0.3 }}
               >
                 {/* 카드 상단 이미지 영역 */}
                 <div
@@ -149,7 +180,13 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
                   </button>}
 
                   {openMenuId === item.board.board_seq && (
-                    <div className={styles.dropdownMenu}>
+                    <motion.div
+                      className={styles.dropdownMenu}
+                      initial={{ opacity: 0, scale: 0.8, y: -10 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.8, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                    >
                       {item.isMine ? (
                         <>
                           <button
@@ -193,7 +230,7 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
                           신고
                         </button>
                       )}
-                    </div>
+                    </motion.div>
                   )}
                 </div>
 
@@ -221,9 +258,9 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
                     </div>
                   </div>
                 </div>
-              </li>
+              </motion.li>
             ))}
-          </ul>
+          </motion.ul>
         )}
       </div>
 
