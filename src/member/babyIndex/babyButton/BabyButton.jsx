@@ -63,22 +63,22 @@ const BabyButton = ({ onEmergencyClick, isVertical = false, isBorn }) => {
             ? location.pathname.startsWith(item.path)
             : false;
 
-          // if (item.label === "긴급 상담") {
-          //   return (
-          //     <div
-          //       key={index}
-          //       className={`${styles.navButton} ${
-          //         isActive ? styles.activeButton : ""
-          //       }`}
-          //       onClick={onEmergencyClick}
-          //     >
-          //       <div className={styles.iconLabelGroup}>
-          //         <div className={styles.iconCircle}>{item.icon}</div>
-          //         <div className={styles.labelText}>{item.label}</div>
-          //       </div>
-          //     </div>
-          //   );
-          // }
+          if (item.label === "긴급 상담") {
+            return (
+              <div
+                key={index}
+                className={`${styles.navButton} ${
+                  isActive ? styles.activeButton : ""
+                }`}
+                onClick={onEmergencyClick}
+              >
+                <div className={styles.iconLabelGroup}>
+                  <div className={styles.iconCircle}>{item.icon}</div>
+                  <div className={styles.labelText}>{item.label}</div>
+                </div>
+              </div>
+            );
+          }
 
           return (
             <a
